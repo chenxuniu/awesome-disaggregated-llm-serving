@@ -1,0 +1,568 @@
+# Structured paper database for Awesome AFD and Disaggregated LLM Serving.
+# Impact tiers are editorial labels: foundational, production, boundary,
+# theory, counter-baseline, substrate, or adjacent.
+
+- id: distserve
+  title: "DistServe: Disaggregating Prefill and Decoding for Goodput-optimized Large Language Model Serving"
+  year: 2024
+  venue: "OSDI"
+  category: "pd-disaggregation"
+  status: "foundational"
+  arxiv: "2401.09670"
+  code: "https://github.com/LLMServe/DistServe"
+  tags: ["PD", "goodput", "SLO", "scheduling"]
+  why_it_matters: "Canonical PD-disaggregation system and one of the clearest TTFT/TPOT goodput framings."
+  limitation: "Mostly studies phase split; operator-level AFD is outside scope."
+
+- id: splitwise
+  title: "Splitwise: Efficient Generative LLM Inference Using Phase Splitting"
+  year: 2024
+  venue: "ISCA"
+  category: "pd-disaggregation"
+  status: "foundational"
+  arxiv: "2311.18677"
+  code: null
+  tags: ["PD", "phase-splitting", "heterogeneous-GPU", "cost"]
+  why_it_matters: "Early and influential argument for serving prefill and decode on different hardware tiers."
+  limitation: "Static phase-splitting model does not cover newer AFD/MoE operator splits."
+
+- id: mooncake
+  title: "Mooncake: A KVCache-centric Disaggregated Architecture for LLM Serving"
+  year: 2025
+  venue: "FAST"
+  category: "kv-cache"
+  status: "production"
+  arxiv: "2407.00079"
+  code: "https://github.com/kvcache-ai/Mooncake"
+  tags: ["PD", "KV-cache", "RDMA", "trace", "production"]
+  why_it_matters: "Turns KV cache into the central disaggregation primitive and releases production-style traces."
+  limitation: "KV-centric phase disaggregation; not a full AFD system."
+
+- id: tetriinfer
+  title: "Inference without Interference: Disaggregate LLM Inference for Mixed Downstream Workloads"
+  year: 2024
+  venue: "arXiv"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2401.11181"
+  code: null
+  tags: ["PD", "mixed-workload", "interference"]
+  why_it_matters: "Studies interference between heterogeneous inference workloads under disaggregated serving."
+  limitation: "Less central than DistServe and Splitwise for the AFD line."
+
+- id: memserve
+  title: "MemServe: Context Caching for Disaggregated LLM Serving with Elastic Memory Pool"
+  year: 2024
+  venue: "arXiv"
+  category: "kv-cache"
+  status: "substrate"
+  arxiv: "2406.17565"
+  code: null
+  tags: ["KV-cache", "memory-pool", "elasticity"]
+  why_it_matters: "Explores elastic memory pooling for context reuse in disaggregated serving."
+  limitation: "Primarily state-centric rather than operator-centric."
+
+- id: loongserve
+  title: "LoongServe: Efficiently Serving Long-Context Large Language Models with Elastic Sequence Parallelism"
+  year: 2024
+  venue: "SOSP"
+  category: "pd-disaggregation"
+  status: "substrate"
+  arxiv: "2404.09526"
+  code: null
+  tags: ["long-context", "sequence-parallelism", "elasticity"]
+  why_it_matters: "Shows long-context serving stresses static placement and motivates elastic execution."
+  limitation: "Sequence-parallel long-context serving is adjacent to, not identical with, AFD."
+
+- id: pdserve
+  title: "P/D-Serve: Serving Disaggregated Large Language Model at Scale"
+  year: 2024
+  venue: "arXiv"
+  category: "pd-disaggregation"
+  status: "production"
+  arxiv: "2408.08147"
+  code: null
+  tags: ["PD", "scale", "production"]
+  why_it_matters: "Studies practical issues in scaling PD-disaggregated serving."
+  limitation: "Does not address attention/FFN operator disaggregation."
+
+- id: dejavu
+  title: "DejaVu: KV-cache Streaming for Fast, Fault-tolerant Generative LLM Serving"
+  year: 2024
+  venue: "ICML"
+  category: "kv-cache"
+  status: "substrate"
+  arxiv: "2403.01876"
+  code: null
+  tags: ["KV-cache", "streaming", "fault-tolerance"]
+  why_it_matters: "Makes KV streaming and fault tolerance first-class serving concerns."
+  limitation: "Not focused on MoE or AFD."
+
+- id: llumnix
+  title: "Llumnix: Dynamic Scheduling for Large Language Model Serving"
+  year: 2024
+  venue: "OSDI"
+  category: "serving-foundation"
+  status: "substrate"
+  arxiv: "2406.03243"
+  code: null
+  tags: ["scheduling", "migration", "elasticity"]
+  why_it_matters: "Dynamic migration and scheduling are important building blocks for elastic disaggregation."
+  limitation: "General serving scheduler rather than a dedicated disaggregation architecture."
+
+- id: megascale-infer
+  title: "MegaScale-Infer: Serving Mixture-of-Experts at Scale with Disaggregated Expert Parallelism"
+  year: 2025
+  venue: "SIGCOMM"
+  category: "afd"
+  status: "foundational"
+  arxiv: "2504.02263"
+  code: null
+  tags: ["AFD", "DEP", "MoE", "expert-parallelism", "heterogeneous-GPU"]
+  why_it_matters: "Foundational system paper making attention/FFN and expert disaggregation concrete at production scale."
+  limitation: "Relies on static provisioning and strong communication assumptions."
+
+- id: step3
+  title: "Step-3 is Large yet Affordable: Model-System Co-design for Cost-effective Decoding"
+  year: 2025
+  venue: "arXiv"
+  category: "afd"
+  status: "production"
+  arxiv: "2507.19427"
+  code: "https://github.com/stepfun-ai/StepMesh"
+  tags: ["AFD", "model-system-co-design", "communication", "StepMesh"]
+  why_it_matters: "A production-oriented AFD design paired with an open communication library."
+  limitation: "Model-specific co-design makes generality an open question."
+
+- id: stepmesh
+  title: "StepMesh: A High-Performance, Low-Latency Communication Library for Attention-FFN Disaggregation"
+  year: 2025
+  venue: "GitHub"
+  category: "afd"
+  status: "substrate"
+  arxiv: null
+  code: "https://github.com/stepfun-ai/StepMesh"
+  tags: ["AFD", "RDMA", "communication-library", "bipartite-communication"]
+  why_it_matters: "One of the clearest open-source communication substrates built specifically for AFD."
+  limitation: "Library-level artifact; end-to-end serving claims depend on integration."
+
+- id: janus-afd
+  title: "JANUS: Disaggregating Attention and Experts for Scalable MoE Inference"
+  year: 2025
+  venue: "arXiv"
+  category: "afd"
+  status: "production"
+  arxiv: "2512.13525"
+  code: null
+  tags: ["AFD", "MoE", "experts", "scheduling"]
+  why_it_matters: "Extends the attention/expert disaggregation line beyond MegaScale-Infer."
+  limitation: "Open questions remain around dynamic placement, jitter, and multi-rack behavior."
+
+- id: findep
+  title: "Efficient MoE Inference with Fine-Grained Scheduling of Disaggregated Expert Parallelism"
+  year: 2025
+  venue: "arXiv"
+  category: "afd"
+  status: "production"
+  arxiv: "2512.21487"
+  code: null
+  tags: ["DEP", "MoE", "fine-grained-scheduling"]
+  why_it_matters: "Targets scheduling inefficiencies inside disaggregated expert-parallel inference."
+  limitation: "Builds on the DEP premise rather than resolving when DEP should be used."
+
+- id: adrenaline
+  title: "Injecting Adrenaline into LLM Serving: Boosting Resource Utilization and Throughput via Attention Disaggregation"
+  year: 2025
+  venue: "arXiv"
+  category: "afd"
+  status: "adjacent"
+  arxiv: "2503.20552"
+  code: null
+  tags: ["attention-disaggregation", "offloading", "decode"]
+  why_it_matters: "A partial-AFD design that offloads attention work to improve utilization."
+  limitation: "Offloading ratio and synchronization costs remain difficult to generalize."
+
+- id: analytical-afd
+  title: "Analytical Provisioning for Attention-FFN Disaggregated LLM Serving under Stochastic Workloads"
+  year: 2026
+  venue: "arXiv"
+  category: "afd-theory"
+  status: "theory"
+  arxiv: "2601.21351"
+  code: null
+  tags: ["AFD", "provisioning", "stochastic-workloads", "A-F-ratio"]
+  why_it_matters: "First clear analytical framework for A/F ratio provisioning under stochastic workloads."
+  limitation: "Theory needs broader validation under real systems, online adaptation, and fabric constraints."
+
+- id: afd-challenges
+  title: "Revealing the Challenges of Attention-FFN Disaggregation for Modern MoE Models and Hardware Systems"
+  year: 2026
+  venue: "arXiv"
+  category: "afd-theory"
+  status: "boundary"
+  arxiv: "2602.09721"
+  code: null
+  tags: ["AFD", "roofline", "interconnect", "dead-zone", "MoE"]
+  why_it_matters: "Important boundary study showing when AFD fails due to communication and imbalance."
+  limitation: "Primarily analysis; mitigation remains open."
+
+- id: deepseek-v3
+  title: "DeepSeek-V3 Technical Report"
+  year: 2024
+  venue: "arXiv"
+  category: "moe-serving"
+  status: "production"
+  arxiv: "2412.19437"
+  code: null
+  tags: ["MoE", "DeepEP", "expert-parallelism", "production"]
+  why_it_matters: "Production-scale MoE inference reference that motivates AFD and DEP designs."
+  limitation: "System details are only partially public."
+
+- id: deepep
+  title: "DeepEP: An Efficient Expert-Parallel Communication Library"
+  year: 2025
+  venue: "GitHub"
+  category: "moe-serving"
+  status: "substrate"
+  arxiv: null
+  code: "https://github.com/deepseek-ai/DeepEP"
+  tags: ["MoE", "expert-parallelism", "all-to-all", "communication"]
+  why_it_matters: "Widely referenced communication substrate for large MoE inference."
+  limitation: "Communication primitive, not a full serving policy."
+
+- id: sarathi
+  title: "SARATHI: Efficient LLM Inference by Piggybacking Decodes with Chunked Prefills"
+  year: 2023
+  venue: "arXiv"
+  category: "reaggregation"
+  status: "counter-baseline"
+  arxiv: "2308.16369"
+  code: null
+  tags: ["chunked-prefill", "reaggregation", "scheduling"]
+  why_it_matters: "Core counter-argument that co-located chunked prefill can avoid disaggregation overhead."
+  limitation: "Does not separately provision memory-heavy and compute-heavy resources."
+
+- id: sarathi-serve
+  title: "Taming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve"
+  year: 2024
+  venue: "OSDI"
+  category: "reaggregation"
+  status: "counter-baseline"
+  arxiv: "2403.02310"
+  code: null
+  tags: ["chunked-prefill", "goodput", "serving"]
+  why_it_matters: "Strong production-style baseline against PD disaggregation."
+  limitation: "Does not expose an A/F provisioning knob."
+
+- id: taichi
+  title: "Prefill-Decode Aggregation or Disaggregation? Unifying Both for Goodput-Optimized LLM Serving"
+  year: 2025
+  venue: "arXiv"
+  category: "reaggregation"
+  status: "counter-baseline"
+  arxiv: "2508.01989"
+  code: null
+  tags: ["PD", "aggregation", "disaggregation", "goodput"]
+  why_it_matters: "Argues that aggregation and disaggregation should be unified rather than treated as binary choices."
+  limitation: "AFD-specific operator split is not the main target."
+
+- id: muxwise
+  title: "Towards High-Goodput LLM Serving with Prefill-decode Multiplexing"
+  year: 2025
+  venue: "arXiv"
+  category: "reaggregation"
+  status: "counter-baseline"
+  arxiv: "2504.14489"
+  code: null
+  tags: ["PD", "multiplexing", "goodput"]
+  why_it_matters: "Strengthens the case that smart multiplexing can compete with physical disaggregation."
+  limitation: "Not designed for MoE attention/FFN separation."
+
+- id: nexus
+  title: "Nexus: Proactive Intra-GPU Disaggregation of Prefill and Decode in LLM Serving"
+  year: 2025
+  venue: "arXiv"
+  category: "reaggregation"
+  status: "counter-baseline"
+  arxiv: "2507.06608"
+  code: null
+  tags: ["intra-GPU", "PD", "proactive", "scheduling"]
+  why_it_matters: "Shows disaggregation can be logical or intra-GPU, not only physical inter-node separation."
+  limitation: "Different cost model from rack-scale PD or AFD."
+
+- id: flowkv
+  title: "FlowKV: A Disaggregated Inference Framework with Low-Latency KV Cache Transfer and Load-Aware Scheduling"
+  year: 2025
+  venue: "arXiv"
+  category: "kv-cache"
+  status: "substrate"
+  arxiv: "2504.03775"
+  code: null
+  tags: ["KV-cache", "transfer", "load-aware-scheduling"]
+  why_it_matters: "Targets the state-transfer bottleneck that constrains PD and AFD systems."
+  limitation: "KV transfer improvement does not alone solve operator provisioning."
+
+- id: cachegen
+  title: "CacheGen: KV Cache Compression and Streaming for Fast Large Language Model Serving"
+  year: 2024
+  venue: "SIGCOMM"
+  category: "kv-cache"
+  status: "substrate"
+  arxiv: "2310.07240"
+  code: null
+  tags: ["KV-cache", "compression", "streaming"]
+  why_it_matters: "Compression and streaming are essential when disaggregation turns KV into network traffic."
+  limitation: "Focuses on KV cache rather than broader split decisions."
+
+- id: lmcache
+  title: "LMCache: An Efficient KV Cache Layer for Enterprise-Scale LLM Inference"
+  year: 2025
+  venue: "arXiv"
+  category: "kv-cache"
+  status: "substrate"
+  arxiv: "2510.09665"
+  code: null
+  tags: ["KV-cache", "enterprise-serving", "reuse"]
+  why_it_matters: "Makes cache reuse a reusable serving layer."
+  limitation: "AFD integration remains an open design question."
+
+- id: cachedattention
+  title: "Cost-Efficient Large Language Model Serving for Multi-turn Conversations with CachedAttention"
+  year: 2024
+  venue: "USENIX ATC"
+  category: "kv-cache"
+  status: "substrate"
+  arxiv: "2403.19708"
+  code: null
+  tags: ["KV-cache", "multi-turn", "reuse"]
+  why_it_matters: "Shows conversation-level cache reuse changes serving economics."
+  limitation: "Disaggregated placement is not the main focus."
+
+- id: cacheblend
+  title: "CacheBlend: Fast Large Language Model Serving for RAG with Cached Knowledge Fusion"
+  year: 2025
+  venue: "EuroSys"
+  category: "kv-cache"
+  status: "substrate"
+  arxiv: "2405.16444"
+  code: null
+  tags: ["KV-cache", "RAG", "reuse"]
+  why_it_matters: "Connects cache reuse with RAG serving, a workload class that stresses disaggregated state."
+  limitation: "RAG-specific; not a general AFD system."
+
+- id: pensieve
+  title: "Stateful Large Language Model Serving with Pensieve"
+  year: 2025
+  venue: "EuroSys"
+  category: "kv-cache"
+  status: "substrate"
+  arxiv: "2312.05516"
+  code: null
+  tags: ["stateful-serving", "KV-cache", "multi-turn"]
+  why_it_matters: "Frames long-lived state as a first-class serving primitive."
+  limitation: "Does not resolve attention/FFN provisioning."
+
+- id: ragcache
+  title: "RAGCache: Efficient Knowledge Caching for Retrieval-Augmented Generation"
+  year: 2024
+  venue: "arXiv"
+  category: "kv-cache"
+  status: "adjacent"
+  arxiv: "2404.12457"
+  code: null
+  tags: ["RAG", "cache", "KV-cache"]
+  why_it_matters: "Important adjacent work for cache-heavy serving workloads."
+  limitation: "RAG-centric rather than disaggregation-centric."
+
+- id: infinitellm
+  title: "Infinite-LLM: Efficient LLM Service for Long Context with DistAttention and Distributed KVCache"
+  year: 2024
+  venue: "arXiv"
+  category: "kv-cache"
+  status: "adjacent"
+  arxiv: "2401.02669"
+  code: null
+  tags: ["long-context", "distributed-KV-cache", "attention"]
+  why_it_matters: "Long-context serving amplifies the need for distributed KV and attention-side design."
+  limitation: "Long-context attention focus; not directly AFD."
+
+- id: vllm
+  title: "Efficient Memory Management for Large Language Model Serving with PagedAttention"
+  year: 2023
+  venue: "SOSP"
+  category: "serving-foundation"
+  status: "foundational"
+  arxiv: "2309.06180"
+  code: "https://github.com/vllm-project/vllm"
+  tags: ["serving", "PagedAttention", "KV-cache"]
+  why_it_matters: "Baseline runtime and memory-management foundation for modern LLM serving."
+  limitation: "Originally not designed around physical PD or AFD separation."
+
+- id: sglang
+  title: "SGLang: Efficient Execution of Structured Language Model Programs"
+  year: 2024
+  venue: "NeurIPS"
+  category: "serving-foundation"
+  status: "production"
+  arxiv: "2312.07104"
+  code: "https://github.com/sgl-project/sglang"
+  tags: ["serving", "runtime", "structured-generation", "expert-parallelism"]
+  why_it_matters: "Important open runtime for modern high-throughput serving and MoE deployment practice."
+  limitation: "Not itself a single disaggregation paper."
+
+- id: orca
+  title: "Orca: A Distributed Serving System for Transformer-Based Generative Models"
+  year: 2022
+  venue: "OSDI"
+  category: "serving-foundation"
+  status: "foundational"
+  arxiv: null
+  code: null
+  tags: ["continuous-batching", "serving", "scheduling"]
+  why_it_matters: "Foundation for iteration-level scheduling and continuous batching."
+  limitation: "Predates most PD and AFD work."
+
+- id: gshard
+  title: "GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding"
+  year: 2021
+  venue: "ICLR"
+  category: "moe-serving"
+  status: "foundational"
+  arxiv: "2006.16668"
+  code: null
+  tags: ["MoE", "sharding", "conditional-computation"]
+  why_it_matters: "Foundational sparse-model and sharding work behind later MoE serving systems."
+  limitation: "Training-oriented compared with modern serving papers."
+
+- id: switch-transformer
+  title: "Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity"
+  year: 2022
+  venue: "JMLR"
+  category: "moe-serving"
+  status: "foundational"
+  arxiv: "2101.03961"
+  code: null
+  tags: ["MoE", "sparsity", "routing"]
+  why_it_matters: "Popularized simple sparse expert routing at large scale."
+  limitation: "Model architecture focus; not a serving system."
+
+- id: deepspeed-moe
+  title: "DeepSpeed-MoE: Advancing Mixture-of-Experts Inference and Training to Power Next-Generation AI Scale"
+  year: 2022
+  venue: "ICML"
+  category: "moe-serving"
+  status: "substrate"
+  arxiv: "2201.05596"
+  code: "https://github.com/microsoft/DeepSpeed"
+  tags: ["MoE", "inference", "training", "systems"]
+  why_it_matters: "Early system substrate for MoE training and inference at scale."
+  limitation: "Not designed around attention/FFN disaggregation."
+
+- id: tutel
+  title: "Tutel: Adaptive Mixture-of-Experts at Scale"
+  year: 2023
+  venue: "MLSys"
+  category: "moe-serving"
+  status: "substrate"
+  arxiv: "2206.03382"
+  code: null
+  tags: ["MoE", "expert-parallelism", "systems"]
+  why_it_matters: "Important MoE system substrate for expert-parallel execution."
+  limitation: "General MoE substrate rather than AFD policy."
+
+- id: fastmoe
+  title: "FastMoE: A Fast Mixture-of-Expert Training System"
+  year: 2021
+  venue: "arXiv"
+  category: "moe-serving"
+  status: "substrate"
+  arxiv: "2103.13262"
+  code: null
+  tags: ["MoE", "systems", "expert-parallelism"]
+  why_it_matters: "Earlier MoE system work that informs expert-parallel communication."
+  limitation: "Training-oriented and earlier than current serving constraints."
+
+- id: lina
+  title: "Accelerating Distributed MoE Training and Inference with Lina"
+  year: 2023
+  venue: "USENIX ATC"
+  category: "moe-serving"
+  status: "substrate"
+  arxiv: "2210.17223"
+  code: null
+  tags: ["MoE", "training", "inference", "communication"]
+  why_it_matters: "Bridges MoE training and inference communication optimization."
+  limitation: "Not an AFD-specific serving design."
+
+- id: frontier
+  title: "Frontier: Simulating the Next Generation of LLM Inference Systems"
+  year: 2025
+  venue: "Workshop"
+  category: "evaluation"
+  status: "substrate"
+  arxiv: "2508.03148"
+  code: null
+  tags: ["simulation", "PD", "AFD", "evaluation"]
+  why_it_matters: "Simulation frameworks are essential for comparing disaggregated serving policies."
+  limitation: "Simulator conclusions depend heavily on model calibration."
+
+- id: burstgpt
+  title: "BurstGPT: A Real-World Workload Dataset to Optimize LLM Serving Systems"
+  year: 2024
+  venue: "arXiv"
+  category: "evaluation"
+  status: "substrate"
+  arxiv: "2401.17644"
+  code: null
+  tags: ["workload", "trace", "bursty-traffic", "evaluation"]
+  why_it_matters: "Workload traces are needed to evaluate static versus adaptive disaggregation."
+  limitation: "Trace availability does not by itself define a benchmark."
+
+- id: spotserve
+  title: "SpotServe: Serving Generative Large Language Models on Preemptible Instances"
+  year: 2024
+  venue: "ASPLOS"
+  category: "hardware-energy"
+  status: "adjacent"
+  arxiv: "2311.15566"
+  code: null
+  tags: ["cloud", "preemptible", "heterogeneous-serving"]
+  why_it_matters: "Shows serving placement must handle unreliable and heterogeneous resources."
+  limitation: "Not specific to PD or AFD."
+
+- id: spad
+  title: "SPAD: Specialized Prefill and Decode Hardware for Disaggregated LLM Inference"
+  year: 2025
+  venue: "arXiv"
+  category: "hardware-energy"
+  status: "adjacent"
+  arxiv: "2510.08544"
+  code: null
+  tags: ["hardware", "PD", "accelerator", "co-design"]
+  why_it_matters: "Represents the hardware specialization side of the disaggregation argument."
+  limitation: "Specialized hardware assumptions may not transfer to general GPU clusters."
+
+- id: beyond-buzz
+  title: "Beyond the Buzz: A Pragmatic Take on Inference Disaggregation"
+  year: 2025
+  venue: "arXiv"
+  category: "evaluation"
+  status: "boundary"
+  arxiv: "2506.05508"
+  code: null
+  tags: ["PD", "pragmatic", "evaluation", "limits"]
+  why_it_matters: "Useful skeptical baseline for claims that disaggregation always wins."
+  limitation: "Broad perspective; not a full AFD boundary theory."
+
+- id: energy-disagg
+  title: "Revisiting Disaggregated Large Language Model Serving for Performance and Energy Implications"
+  year: 2026
+  venue: "arXiv"
+  category: "hardware-energy"
+  status: "boundary"
+  arxiv: "2601.08833"
+  code: null
+  tags: ["energy", "PD", "performance", "TCO"]
+  why_it_matters: "Connects disaggregated serving with energy and carbon-aware operation."
+  limitation: "Energy-optimized AFD remains open."
+

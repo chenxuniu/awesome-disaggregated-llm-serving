@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+title: "Awesome AFD and Disaggregated LLM Serving"
+message: "If this repository helps your research, please cite it."
+type: software
+authors:
+  - family-names: Niu
+    given-names: Chenxu
+repository-code: "https://github.com/chenxuniu/awesome-disaggregated-llm-serving"
+license: MIT
+
