@@ -16,6 +16,8 @@ The goal is not to collect every LLM inference paper. The goal is to help
 readers understand where each paper sits in the disaggregated serving design
 space, what problem it solves, and what it leaves open.
 
+![Taxonomy of disaggregated LLM serving](assets/taxonomy.png)
+
 ## Start Here
 
 | Topic | Best first paper | Why it matters |
@@ -170,4 +172,3 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full format.
 
 If this repository helps your research, please cite the repository using
 [CITATION.cff](CITATION.cff).
-
