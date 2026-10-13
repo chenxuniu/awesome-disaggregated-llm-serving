@@ -3,9 +3,12 @@
 A curated research map and practical starting point for disaggregated large
 language model serving: what to split, when it pays off, and what you can run.
 
-**73 catalog entries · 10 topic groups · source review: October 13, 2026**
+**139 curated entries · 374 survey-discovered works · 11 curated topic groups · source review: October 13, 2026**
 
-[Browse the full catalog](docs/catalog.md) · [Find runnable systems](docs/systems.md) ·
+The two collections overlap. The discovery layer records source-check status
+explicitly and does not imply that every work is a deeply audited system.
+
+[Browse the curated catalog](docs/catalog.md) · [Browse the extended index](docs/discovery.md) · [Find runnable systems](docs/systems.md) ·
 [Build a first experiment](docs/practical-guide.md) · [Compare systems fairly](docs/evaluation.md)
 
 The scope covers prefill–decode (PD), attention–FFN (AFD), disaggregated expert
@@ -16,6 +19,10 @@ simulation work is included when it changes a disaggregation decision.
 ![Taxonomy of disaggregated LLM serving](assets/taxonomy.png)
 
 ## Start Here
+
+- **Newest coverage:** [recent work and canonical versions](docs/latest-updates.md).
+- **Understand what counts as a split:** [boundary guide and AFD subtypes](docs/boundary-guide.md).
+- **Find the nearest research mechanism:** [research comparison map](docs/research-map.md).
 
 - **Learning PD:** [DistServe](https://arxiv.org/abs/2401.09670) →
   [Splitwise](https://arxiv.org/abs/2311.18677) → [Mooncake](https://arxiv.org/abs/2407.00079).
@@ -33,10 +40,18 @@ simulation work is included when it changes a disaggregation decision.
 
 ## Recent Additions Worth Reading
 
+- **October 2026:** [ECO](https://arxiv.org/abs/2610.08373),
+  [AFORE](https://arxiv.org/abs/2610.03203), and [FluidPD](https://arxiv.org/abs/2610.06917).
+- **Runnable AFD:** [FastAFD](https://github.com/hao-ai-lab/FastAFD) and
+  [vLLM AFD Plugin](https://github.com/vllm-project/afd-plugin), with prototype/backend limits documented.
+- **Operator and composite serving:** [AFlex](https://arxiv.org/abs/2608.01891),
+  [ExpertPlex](https://arxiv.org/abs/2607.18002), [OpScale](https://arxiv.org/abs/2608.13499),
+  [OpWeave](https://arxiv.org/abs/2609.14237), and [KernelFlume](https://arxiv.org/abs/2606.29207).
+
 These are selected additions, not a claim to cover every paper or rank impact.
 Recent arXiv entries remain labeled as preprints unless publication is verified.
 
-- **Elastic PD:** [DynaServe](https://arxiv.org/abs/2504.09285),
+- **Elastic PD:** [Libra / DynaServe](https://www.usenix.org/conference/nsdi26/presentation/ruan-libra),
   [prefill deflection](https://arxiv.org/abs/2607.02043), and
   [FluidPD](https://arxiv.org/abs/2610.06917) address underutilized pools and changing demand.
 - **AFD decisions:** [How Far Can Disaggregation Go?](https://arxiv.org/abs/2605.28302)
@@ -61,6 +76,7 @@ Recent arXiv entries remain labeled as preprints unless publication is verified.
 - [PD disaggregation and elasticity](docs/catalog.md#pd-disaggregation)
 - [AFD and expert disaggregation](docs/catalog.md#afd)
 - [AFD provisioning and boundaries](docs/catalog.md#afd-theory)
+- [Composite PD × AFD](docs/catalog.md#composite)
 - [Aggregation, multiplexing, and temporal alternatives](docs/catalog.md#reaggregation)
 - [KV-cache transfer, storage, and reuse](docs/catalog.md#kv-cache)
 - [MoE serving substrates](docs/catalog.md#moe-serving)
@@ -78,17 +94,26 @@ python3 scripts/search_papers.py --tag AFD
 python3 scripts/search_papers.py --category kv-cache --code
 python3 scripts/search_papers.py --year 2026 --json
 python3 scripts/search_papers.py "elastic"
+python3 scripts/search_papers.py --collection discovery --class O
+python3 scripts/search_papers.py --collection all "BiScale"
 ```
 
 Text search covers titles, tags, contribution, and scope notes. Filters combine
 with AND; tag matching is exact and case-insensitive. Code availability means a
 verified author/project link, not a tested installation or complete reproduction.
-Use [data/papers.json](data/papers.json) for programmatic access.
+Historical aliases are searchable. Use `--collection discovery` for the wider
+survey index and `--collection all` for a combined view that keeps curated
+records over mapped counterparts. Use [data/papers.json](data/papers.json) and
+[data/discovery.json](data/discovery.json) for programmatic access.
 
 ## Repository Map
 
 - [papers.yaml](papers.yaml): source of truth for paper and artifact metadata.
-- [docs/catalog.md](docs/catalog.md): generated links, code, contribution, and scope for every entry.
+- [docs/catalog.md](docs/catalog.md): generated links, code, contribution, and scope for curated entries.
+- [docs/discovery.md](docs/discovery.md): full survey-derived discovery index in seven paginated classes.
+- [docs/boundary-guide.md](docs/boundary-guide.md): structural tests, operator subtypes, and evidence interpretation.
+- [docs/latest-updates.md](docs/latest-updates.md): recent mechanisms and version/alias changes.
+- [docs/research-map.md](docs/research-map.md): nearest baselines for common research proposals.
 - [docs/systems.md](docs/systems.md): runtimes, frameworks, transfer libraries, and research artifacts.
 - [docs/practical-guide.md](docs/practical-guide.md): deployment choices and a first PD experiment.
 - [docs/evaluation.md](docs/evaluation.md): workloads, metrics, baselines, and experiment reporting.
@@ -109,6 +134,8 @@ both its contribution and its scope. See [CONTRIBUTING.md](CONTRIBUTING.md).
 python3 scripts/validate_papers.py
 python3 scripts/generate_tables.py --write
 python3 scripts/generate_tables.py --check
+python3 scripts/generate_discovery.py --write
+python3 scripts/generate_discovery.py --check
 python3 -m unittest discover -s tests -v
 ```
 
@@ -138,3 +165,12 @@ current pass. See the [source policy](docs/sources.md) before interpreting a lab
 
 If this map helps your research, cite the repository using [CITATION.cff](CITATION.cff).
 Cite the original papers for their contributions and results.
+
+## Survey Attribution
+
+The expanded discovery coverage and boundary framework were adapted, with the
+author's authorization, from Chenxu Niu's supplied draft *Disaggregated LLM
+Serving: A Survey and Taxonomy of Prefill–Decode and Attention–FFN Separation*.
+The linked literature sources remain the authority for technical contributions.
+The index identifies metadata checks separately from inherited discovery
+annotations. See [the source policy](docs/sources.md) for scope and provenance.

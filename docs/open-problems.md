@@ -19,9 +19,13 @@ separate simulator agreement from real-system validation.
 ## 2. Elasticity Across Time Scales
 
 [LoongServe](catalog.md#loongserve), [Llumnix](catalog.md#llumnix),
-[DynaServe](catalog.md#dynaserve), [prefill deflection](catalog.md#prefill-deflection),
+[Libra / DynaServe](catalog.md#dynaserve), [prefill deflection](catalog.md#prefill-deflection),
 and [FluidPD](catalog.md#fluidpd) already address forms of migration, load
 balancing, offload, or role adaptation. Elastic PD is not an empty field.
+
+[OpScale](catalog.md#opscale), [AFlex](catalog.md#aflex), and
+[KernelFlume](catalog.md#kernelflume) already examine operator or core-attention
+scaling. [AFORE](catalog.md#afore) studies overlapped expert reconfiguration.
 
 Question: how should transient offload, sustained role changes, and resource
 scaling interact with operator-level AFD and expert placement? Measure adaptation
@@ -97,6 +101,11 @@ allocation policies independently of the precision/accuracy changes they enable.
 [power-aware PD provisioning](catalog.md#power-provisioning-pd) already study
 energy or power-related decisions.
 
+[AFlex](catalog.md#aflex) and [ECO](catalog.md#eco) add operator-level DVFS and
+measurement-budgeted configuration search; [DualScale](catalog.md#dualscale)
+and [PowerSlider](catalog.md#powerslider) add phase-aware and moving-power-limit
+mechanisms. Treat these as direct comparison anchors.
+
 Question: can online power capping/DVFS and pool adaptation improve joules per
 SLO-compliant completion under a fleet power limit? Include host/network/idle
 energy where relevant, adaptation overhead, and tail latency. Analytical Pareto
@@ -112,3 +121,5 @@ Question: can one reproducible suite expose phase ratios, prefix reuse, expert
 skew, congestion, failures, power, and application dependencies without conflating
 measured, simulated, and analytical results? Start with [evaluation.md](evaluation.md)
 and release raw timing plus the exact configuration used for every result.
+
+For a mechanism-oriented shortlist, continue to [research-map.md](research-map.md).

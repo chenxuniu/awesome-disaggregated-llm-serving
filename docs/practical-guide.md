@@ -84,6 +84,23 @@ A first report should show:
 The useful outcome is the workload/network regime where the split helps.
 A successful KV transfer is an implementation milestone, not a performance conclusion.
 
+## Add AFD Only After Identifying Its Boundary
+
+For an open prototype, inspect [FastAFD](https://github.com/hao-ai-lab/FastAFD)
+or [vLLM AFD Plugin](https://github.com/vllm-project/afd-plugin). Read each
+project's model, backend, topology, and accuracy constraints before selecting
+a recipe. Their release-specific instructions are the launch authority.
+
+An AFD experiment should add per-role memory/weight accounting, bidirectional
+activation traffic, expert-load skew, pipeline depth, and role ratio to the
+PD experiment record. Confirm that router/admission/prefill time is included
+when claiming end-to-end goodput; a decode-only benchmark cannot supply it.
+For a core-attention system, account for projection/FFN computation on the
+weight side and KV-range ownership on the attention side instead.
+
+See [operator subtypes](boundary-guide.md) and [research comparisons](research-map.md)
+for the matching alternatives and evidence limits.
+
 ## Diagnose the Bottleneck
 
 - **TTFT rises while decode is idle:** separate prefill queueing from prefill

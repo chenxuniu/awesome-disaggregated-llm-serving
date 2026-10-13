@@ -20,6 +20,31 @@ These are different layers. Dynamo and llm-d assemble distributed services;
 vLLM, SGLang, and TensorRT-LLM execute models. Selecting a framework does not
 remove the need to validate its engine and transfer backend.
 
+## Runnable AFD and Additional Orchestration Paths
+
+- [FastAFD](https://github.com/hao-ai-lab/FastAFD): open AFD prototype on
+  Blackwell NVL72. The [technical report](https://haoailab.com/blogs/fastafd/)
+  measures steady-state decode after prefill; it is not a complete online PD+AFD
+  production service, and future heterogeneous-hardware results are projections.
+- [vLLM AFD Plugin](https://github.com/vllm-project/afd-plugin): independently
+  deployed Attention/FFN services with connector/backend-specific recipes.
+  The current README targets a newer runtime than the July launch post. Follow
+  the selected commit's compatibility matrix and tests rather than transplanting
+  old flags or pins. Controlled forced-balancing performance experiments should
+  be separated from output-accuracy and realistic online-serving evidence.
+- [AIBrix](https://github.com/vllm-project/aibrix): Kubernetes inference control
+  plane with [current P/D routing documentation](https://aibrix.readthedocs.io/latest/features/gateway-routing/pd-disaggregation.html).
+- [Ray Serve LLM](https://docs.ray.io/en/latest/serve/llm/architecture/serving-patterns/prefill-decode.html):
+  documented disaggregated serving pattern over supported engine/connector versions.
+- [OME](https://github.com/sgl-project/ome): Kubernetes engine/decoder/router
+  organization; [first-party overview](https://www.lmsys.org/blog/2025-07-08-ome/).
+- [AMD ROCm Infera](https://github.com/AMD-AGI/Infera): distributed inference
+  orchestration; [first-party deployment description](https://rocm.blogs.amd.com/software-tools-optimization/infera-di/README.html).
+
+Use the [boundary guide](boundary-guide.md) to distinguish full-attention AFD
+from core-attention offload and expert services. KernelFlume, Glinthawk, and
+Lamina describe a different operator contract from FastAFD-style pools.
+
 ## Cache and Communication Layers
 
 | Project | Transfers or manages | Source | Boundary |

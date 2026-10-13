@@ -101,3 +101,28 @@ an overloaded pool and long individual token stalls.
 - [ ] Raw per-request/per-token data and the script used to derive the figures.
 
 A strong result explains both its winning regime and its crossover or failure regime.
+
+## Boundary and Evidence Checks Added from the Survey
+
+Describe the split using [capacity, state/interface, and independent control](boundary-guide.md)
+before comparing benefits. For AFD, record projection placement and distinguish
+full-attention, core-attention, borrowed-attention, and expert-service interfaces.
+Count every communication/storage resource separately; a nominal network rating
+is not achieved boundary bandwidth.
+
+Separate structural qualification from progress, demand-driven resizing, role
+flips, and replacement recovery. For an operational claim, publish the actual
+event and show what the healthy counterpart continued serving. “Not reported”
+is an unknown, not proof that a mechanism is missing.
+
+For energy, state measurement boundaries, intervals, sampling cadence, idle
+baseline, and the denominator (input tokens, output tokens, requests, or joint-SLO
+completions). [TokenPowerBench](catalog.md#tokenpowerbench) is a measurement
+reference. [TokenPowerSandbox](catalog.md#tokenpowersandbox) illustrates why a
+metric-specific gate can accept energy screening yet abstain on latency; its
+single-GPU evidence is outside multi-GPU architecture crossover validation.
+
+Include [AFlex](catalog.md#aflex), [ECO](catalog.md#eco), [DualScale](catalog.md#dualscale),
+and [PowerSlider](catalog.md#powerslider) when the proposed contribution concerns
+operator DVFS, measured configuration search, phase controls, or moving power caps.
+Their scope notes identify the objective and evaluation boundaries to preserve.

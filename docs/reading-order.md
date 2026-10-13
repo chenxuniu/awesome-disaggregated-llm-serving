@@ -32,7 +32,7 @@ Skim methods and evaluation assumptions before reading all implementation detail
 
 - **Foundations:** [Orca](catalog.md#orca), [vLLM](catalog.md#vllm), [SGLang](catalog.md#sglang).
 - **PD:** [Splitwise](catalog.md#splitwise), [DistServe](catalog.md#distserve),
-  [P/D-Serve](catalog.md#pdserve), [DynaServe](catalog.md#dynaserve), [FluidPD](catalog.md#fluidpd).
+  [P/D-Serve](catalog.md#pdserve), [Libra / DynaServe](catalog.md#dynaserve), [FluidPD](catalog.md#fluidpd).
 - **State:** [Mooncake](catalog.md#mooncake), [MemServe](catalog.md#memserve),
   [CacheGen](catalog.md#cachegen), [LMCache](catalog.md#lmcache), [FlowKV](catalog.md#flowkv).
 - **AFD/DEP:** [MegaScale-Infer](catalog.md#megascale-infer), [Step-3](catalog.md#step3),
@@ -54,7 +54,7 @@ a deployed runtime, and a paper are different kinds of evidence.
 1. [Practical guide](practical-guide.md) and [systems directory](systems.md).
 2. The official engine/connector/router guide for a pinned release.
 3. [DistServe](catalog.md#distserve), [Mooncake](catalog.md#mooncake), and [Sarathi-Serve](catalog.md#sarathi-serve).
-4. [DynaServe](catalog.md#dynaserve), [prefill deflection](catalog.md#prefill-deflection), and [FluidPD](catalog.md#fluidpd).
+4. [Libra / DynaServe](catalog.md#dynaserve), [prefill deflection](catalog.md#prefill-deflection), and [FluidPD](catalog.md#fluidpd).
 5. [Evaluation protocol](evaluation.md) and [BurstGPT](catalog.md#burstgpt).
 
 ## Build or Evaluate AFD
@@ -70,3 +70,12 @@ a deployed runtime, and a paper are different kinds of evidence.
 Use [research questions](open-problems.md) after identifying an existing mechanism
 and its evaluation boundaries. Read the nearest recent work before calling a
 direction unexplored. The [timeline](timeline.md) helps locate newer anchors.
+
+## Recent-Mechanism Update Route
+
+1. [Canonical versions](latest-updates.md): Libra, extended Frontier, and historical aliases.
+2. [Boundary guide](boundary-guide.md): four operator subtypes and separate operational evidence.
+3. [FastAFD](catalog.md#fastafd) and [vLLM AFD Plugin](catalog.md#vllm-afd-plugin): implementation paths.
+4. [OpScale](catalog.md#opscale), [OpWeave](catalog.md#opweave), and [AFORE](catalog.md#afore): adaptable operator/expert placement.
+5. [AFlex](catalog.md#aflex), [ECO](catalog.md#eco), and [PowerSlider](catalog.md#powerslider): energy/power decisions.
+6. [Research map](research-map.md): match the proposed mechanism to current baselines.

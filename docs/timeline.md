@@ -37,7 +37,7 @@ Use each [catalog entry](catalog.md) for its source and year convention.
 - [MegaScale-Infer](catalog.md#megascale-infer): SIGCOMM 2025 DEP/AFD system.
 - [Adrenaline](catalog.md#adrenaline), [Step-3](catalog.md#step3),
   [JANUS](catalog.md#janus-afd), and [FinDEP](catalog.md#findep): operator/expert designs.
-- [DynaServe](catalog.md#dynaserve), [TaiChi](catalog.md#taichi),
+- [Libra / DynaServe](catalog.md#dynaserve), [TaiChi](catalog.md#taichi),
   [MuxWise](catalog.md#muxwise), [Nexus](catalog.md#nexus), and
   [Helix](catalog.md#helix-parallelism): adaptive, unified, logical, or temporal alternatives.
 - [FlowKV](catalog.md#flowkv) and [LMCache](catalog.md#lmcache): transfer and reusable cache layers.
@@ -67,3 +67,21 @@ Use each [catalog entry](catalog.md) for its source and year convention.
 
 Recent entries listed as `arXiv` are preprints in this catalog; no peer-review
 acceptance is implied. See [source policy](sources.md) for the verification boundary.
+
+## Additional 2026 Coverage and Canonical Revisions
+
+- [Libra](catalog.md#dynaserve): NSDI 2026 canonical follow-up to DynaServe.
+- [Extended Frontier](catalog.md#frontier): 2026 simulator version, retaining the earlier workshop link.
+- [FastAFD](catalog.md#fastafd), [vLLM AFD Plugin](catalog.md#vllm-afd-plugin),
+  [ASAP](catalog.md#asap), [KernelFlume](catalog.md#kernelflume), and
+  [Tarragon](catalog.md#tarragon): open prototypes, prefill/core-attention splits, and resilience.
+- [AFlex](catalog.md#aflex), [ExpertPlex](catalog.md#expertplex),
+  [OpScale](catalog.md#opscale), and [OpWeave](catalog.md#opweave): composite and adaptable operator deployments.
+- [ECO](catalog.md#eco) and [AFORE](catalog.md#afore): October 2026 energy-oriented
+  configuration search and overlapped expert reconfiguration.
+- [Crossflow](catalog.md#crossflow), [PPD](catalog.md#ppd), [DualPath](catalog.md#dualpath),
+  and [PEARL](catalog.md#pearl): agentic state, elasticity, storage paths, and rollout execution.
+
+Use [latest-updates.md](latest-updates.md) for renamed works and selected recent
+mechanisms. The [discovery index](discovery.md) reflects the frozen survey search
+window plus current metadata checks, not a new exhaustive search after its cutoff.

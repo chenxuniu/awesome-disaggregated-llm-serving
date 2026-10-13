@@ -108,3 +108,16 @@ model, traffic, and fabric regime.
 These are editorial classification rules grounded in the linked works. See the
 [complete catalog](catalog.md), [systems directory](systems.md), and
 [evaluation guide](evaluation.md) for sources and deployment boundaries.
+
+## Boundary-First Extension from the Survey
+
+The [boundary guide](boundary-guide.md) expands this map into capacity,
+interface/state ownership, and independent control tests, plus five descriptive
+planes. It separates structural qualification from progress, runtime role
+scaling, and failure/recovery evidence. A missing report is distinct from an
+explicitly absent property.
+
+Operator subtypes now have explicit reading paths: full-attention, core-attention,
+borrowed-attention, and expert-service. Composite PD × AFD systems form a separate
+[category](catalog.md#composite). The survey-derived discovery layer uses seven
+boundary/comparison classes and remains [separate from curated judgments](discovery.md).

@@ -98,3 +98,35 @@ categories by descending year and stable ID. `--check` never writes files.
 Offline validation catches syntax/label errors and duplicate IDs/arXiv identifiers.
 It does not prove that a link exists or that a scientific claim is true. Include
 source evidence in your PR description and distinguish content checks from GPU testing.
+
+## Extended Discovery Layer and Historical Versions
+
+The curated database accepts optional `aliases` (string array),
+`related_sources` (HTTPS URL array), and `operator_subtype` (`full-attention`,
+`core-attention`, `borrowed-attention`, `expert-service`). Keep the stable `id`
+when selecting a renamed or extended canonical version. Record earlier primary
+links rather than creating another record solely for a name change.
+
+The broader survey-derived layer lives in `data/discovery.json`; it is not an
+automatic admission queue into the curated database. Preserve its survey-reported
+classification/venue/role separately from independent source-check status.
+
+- `metadata-verified`: identity checked on official arXiv or DOI-registry metadata.
+- `reachable`: primary page opened without a full technical/status audit.
+- `reference-only`: primary reference retained; independent identity/access check unresolved.
+
+Successful checks use the actual date in `checked`; reference-only records use
+`null`. `main_id` maps a counterpart to an existing curated ID. Do not map merely
+because two reports share a project name if they represent different works.
+
+```bash
+python3 scripts/generate_discovery.py --write
+python3 scripts/generate_discovery.py --check
+python3 scripts/search_papers.py --collection discovery --class O
+python3 scripts/search_papers.py --collection all "BiScale"
+```
+
+Review titles, relationships, classifications, and source-check states before
+changing them. Regeneration never verifies a scientific claim or upgrades a
+record's evidence state. Update the README's snapshot counts and guides when
+coverage changes materially; the generators manage the two catalog layers.

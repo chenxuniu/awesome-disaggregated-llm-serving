@@ -12,6 +12,7 @@ CATEGORIES = {
     'pd-disaggregation': 'Prefill–decode disaggregation and elasticity',
     'afd': 'Attention–FFN and expert disaggregation',
     'afd-theory': 'AFD provisioning and boundaries',
+    'composite': 'Composite PD × attention–FFN serving',
     'reaggregation': 'Aggregation, multiplexing, and temporal alternatives',
     'kv-cache': 'KV-cache transfer, storage, and reuse',
     'moe-serving': 'MoE serving substrates',
@@ -24,7 +25,8 @@ STATUSES = {'foundational', 'production', 'theory', 'boundary', 'counter-baselin
 ARTIFACT_TYPES = {'paper', 'library', 'framework', 'benchmark'}
 REQUIRED = {'id', 'title', 'year', 'venue', 'category', 'status', 'tags', 'why_it_matters',
             'limitation', 'source', 'verified', 'artifact_type'}
-OPTIONAL = {'arxiv', 'code'}
+OPTIONAL = {'arxiv', 'code', 'aliases', 'related_sources', 'operator_subtype'}
+OPERATOR_SUBTYPES = {'full-attention', 'core-attention', 'borrowed-attention', 'expert-service'}
 
 
 def parse_value(raw: str):
@@ -114,6 +116,18 @@ def validate(papers: list[dict]) -> list[str]:
         tags = paper.get('tags')
         if not isinstance(tags, list) or not tags or any(not isinstance(t, str) or not t.strip() for t in tags):
             errors.append(f'{label}: tags must be a nonempty list of nonempty strings')
+        if 'aliases' in paper:
+            aliases = paper['aliases']
+            if not isinstance(aliases, list) or any(not isinstance(a, str) or not a.strip() for a in aliases):
+                errors.append(f'{label}: aliases must be a list of nonempty strings')
+        if 'related_sources' in paper:
+            sources = paper['related_sources']
+            if not isinstance(sources, list) or any(not valid_url(s) for s in sources):
+                errors.append(f'{label}: related_sources must be a list of HTTPS URLs')
+        if 'operator_subtype' in paper:
+            subtype = paper['operator_subtype']
+            if not isinstance(subtype, str) or subtype not in OPERATOR_SUBTYPES:
+                errors.append(f'{label}: invalid operator_subtype')
         checked = paper.get('verified')
         try:
             if not isinstance(checked, str) or not re.fullmatch(r'\d{4}-\d{2}-\d{2}', checked):

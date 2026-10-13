@@ -171,6 +171,131 @@ class CatalogCommands(unittest.TestCase):
         self.write([ENTRY])
         self.assertNotEqual(self.run_script("search_papers.py", "--category", "typo").returncode, 0)
 
+    def test_search_finds_historical_alias(self):
+        self.write([{**ENTRY, "aliases": ["FormerName"]}])
+        result = self.run_script("search_papers.py", "formername", "--json")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual([r["id"] for r in json.loads(result.stdout)], ["sample"])
+
+    def test_rejects_malformed_alias_and_related_sources(self):
+        for key, value in (("aliases", "FormerName"), ("related_sources", ["not-a-url"]), ("operator_subtype", "typo")):
+            self.write([{**ENTRY, key: value}])
+            result = self.run_script("validate_papers.py")
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn(key, result.stderr)
+
+    def write_discovery(self):
+        row = {**ENTRY, "id": "survey-other", "title": "Discovered workload",
+               "arxiv": "2602.12345", "source": "https://arxiv.org/abs/2602.12345",
+               "class": "O", "subtype": "O2", "source_check": "metadata-verified",
+               "main_id": None, "survey_key": "other2026", "checked": "2026-10-13"}
+        (self.root / "data" / "discovery.json").write_text(json.dumps([row]))
+        return row
+
+    def test_search_discovery_and_combined_deduplication(self):
+        self.write([ENTRY])
+        row = self.write_discovery()
+        result = self.run_script("search_papers.py", "--collection", "all", "--json")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(len(json.loads(result.stdout)), 2)
+        row["main_id"] = "sample"
+        (self.root / "data" / "discovery.json").write_text(json.dumps([row]))
+        result = self.run_script("search_papers.py", "--collection", "all", "--json")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual([r["id"] for r in json.loads(result.stdout)], ["sample"])
+
+    def test_discovery_class_filter(self):
+        self.write([ENTRY])
+        self.write_discovery()
+        result = self.run_script("search_papers.py", "--collection", "discovery", "--class", "O", "--json")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(len(json.loads(result.stdout)), 1)
+        result = self.run_script("search_papers.py", "--collection", "discovery", "--class", "P", "--json")
+        self.assertEqual(json.loads(result.stdout), [])
+
+    def test_discovery_generation_and_freshness(self):
+        self.write([ENTRY])
+        self.write_discovery()
+        result = self.run_script("generate_discovery.py", "--write")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertTrue((self.root / "docs" / "discovery" / "operator.md").is_file())
+        self.assertEqual(self.run_script("generate_discovery.py", "--check").returncode, 0)
+        (self.root / "docs" / "discovery" / "operator.md").write_text("stale")
+        self.assertNotEqual(self.run_script("generate_discovery.py", "--check").returncode, 0)
+
+    def test_discovery_dangling_main_id_fails(self):
+        self.write([ENTRY])
+        row = self.write_discovery()
+        row["main_id"] = "missing"
+        (self.root / "data" / "discovery.json").write_text(json.dumps([row]))
+        result = self.run_script("generate_discovery.py", "--write")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("main_id", result.stderr)
+
+    def test_discovery_duplicate_ids_and_bad_status_fail(self):
+        self.write([ENTRY])
+        row = self.write_discovery()
+        for entries in ([row, row], [{**row, "source_check": "verified-everything"}]):
+            (self.root / "data" / "discovery.json").write_text(json.dumps(entries))
+            self.assertNotEqual(self.run_script("generate_discovery.py", "--write").returncode, 0)
+
+    def test_combined_search_matches_mapped_discovery_alias(self):
+        self.write([ENTRY])
+        row = self.write_discovery()
+        row.update(main_id="sample", aliases=["HistoricalAlias"], tags=["legacy-tag"])
+        (self.root / "data" / "discovery.json").write_text(json.dumps([row]))
+        result = self.run_script("search_papers.py", "HistoricalAlias", "--collection", "all", "--tag", "legacy-tag", "--json")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual([r["id"] for r in json.loads(result.stdout)], ["sample"])
+
+    def test_discovery_bad_category_reports_without_traceback(self):
+        self.write([ENTRY])
+        row = self.write_discovery()
+        row["category"] = []
+        (self.root / "data" / "discovery.json").write_text(json.dumps([row]))
+        result = self.run_script("generate_discovery.py", "--write")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("category", result.stderr)
+        self.assertNotIn("Traceback", result.stderr)
+
+    def test_discovery_rejects_duplicate_json_keys(self):
+        self.write([ENTRY])
+        row = self.write_discovery()
+        path = self.root / "data" / "discovery.json"
+        path.write_text(json.dumps([row]).replace('"source_check": "metadata-verified"', '"source_check": "reference-only", "source_check": "metadata-verified"'))
+        result = self.run_script("generate_discovery.py", "--write")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("duplicate", result.stderr.lower())
+
+    def test_discovery_text_shows_source_check(self):
+        self.write([ENTRY])
+        row = self.write_discovery()
+        row.update(source_check="reference-only", checked=None)
+        (self.root / "data" / "discovery.json").write_text(json.dumps([row]))
+        result = self.run_script("search_papers.py", "--collection", "discovery")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("reference-only", result.stdout)
+        self.assertIn("O/O2", result.stdout)
+
+    def test_discovery_rejects_bad_identifiers_and_metadata_url(self):
+        self.write([ENTRY])
+        row = self.write_discovery()
+        for key, value in (("arxiv", "garbage"), ("metadata_source", "javascript:alert(1)")):
+            with self.subTest(key=key):
+                (self.root / "data" / "discovery.json").write_text(json.dumps([{**row, key: value}]))
+                result = self.run_script("generate_discovery.py", "--write")
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn(key, result.stderr)
+
+    def test_discovery_id_cannot_collide_with_curated_id(self):
+        self.write([ENTRY])
+        row = self.write_discovery()
+        row.update(id="sample", main_id=None)
+        (self.root / "data" / "discovery.json").write_text(json.dumps([row]))
+        result = self.run_script("generate_discovery.py", "--write")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("id", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

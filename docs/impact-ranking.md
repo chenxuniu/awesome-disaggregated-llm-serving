@@ -70,7 +70,7 @@ AFD papers should be judged against all five forms, not citations alone.
 These additions matter for current coverage; this is not a claim that they have
 accumulated the same influence as the earlier foundations.
 
-- [DynaServe](catalog.md#dynaserve), [prefill deflection](catalog.md#prefill-deflection),
+- [Libra / DynaServe](catalog.md#dynaserve), [prefill deflection](catalog.md#prefill-deflection),
   and [FluidPD](catalog.md#fluidpd): compare elasticity and slack use before
   presenting adaptive PD as a new topic.
 - [Helix](catalog.md#helix-parallelism): temporal attention/FFN sharding alternative

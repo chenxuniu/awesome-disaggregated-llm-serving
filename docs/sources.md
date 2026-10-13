@@ -85,3 +85,68 @@ artifact association, and at least the contribution/scope described in the
 record. Before updating deployment commands, check the official guide for the
 same software version. Prefer explicit source-linked corrections over an
 unqualified claim that the catalog is exhaustive.
+
+## Survey Integration Pass (2026-10-13)
+
+The second pass used Chenxu Niu's author-supplied draft *Disaggregated LLM
+Serving: A Survey and Taxonomy of Prefill–Decode and Attention–FFN Separation*
+as a discovery and conceptual reference. Its frozen discovery layer contains
+374 works with a 2026-10-07 search cutoff; its analytical set contains 46
+source-located works. These are different layers and were not treated as
+interchangeable evidence.
+
+This repository now has **139 curated records** and **374 discovery records**,
+with **117 mapped overlaps**. Those mapping rules yield **396 combined work
+records**; this is a catalog count, not a count of distinct serving systems,
+implementations, production deployments, or reproduced results.
+
+The imported index contains:
+
+- **257 metadata-verified records:** 250 official arXiv identities and seven
+  identities recovered through the official Crossref DOI registry.
+- **104 reachable records:** official proceedings/documentation/project links
+  opened successfully. Reachability is not a full technical/status audit.
+- **13 reference-only records:** primary links from the supplied bibliography
+  remain, but access restrictions, timeouts, or registry rate limits prevented
+  an independent identity check in this pass. They are visibly marked and have
+  no successful-check date.
+
+The extension preserves survey-reported venue and role as separate JSON fields.
+Its descriptions and seven-class placements are attributed survey annotations.
+Checking a title, DOI, or page does not independently validate its technical
+classification, peer-review claim, state contract, or operational properties.
+No system-property percentages were recomputed from the discovery layer.
+
+ArXiv/current-title changes were applied to display titles, with historical
+names retained for search. This includes LAPS/PLA-Serve, Tessera/FluidGPU,
+DualScale/BiScale, and CHIME/L3. Libra's official NSDI 2026 page and the extended
+Frontier paper became canonical while stable IDs and earlier source links remain.
+ShuffleInfer's ACM TACO 2025 publication and Tropical's DAC 2025 publication
+metadata were also checked against Crossref and made canonical. Their preprints
+remain related sources. The TetriInfer/ShuffleInfer pair keeps both references
+without claiming that the earlier technical extraction is identical to the
+archival paper; Tropical's later arXiv posting is not a new 2026 publication.
+
+Two supporting energy-evaluation references in the draft's later revision notes,
+TokenPowerBench and TokenPowerSandbox, are curated separately from the frozen
+374-work discovery set. Their scope notes explicitly avoid using measurement or
+single-GPU calibration as proof of PD/AFD energy savings.
+
+The boundary guide adapts the draft's structural/operational distinction and
+four operator subtypes. It remains an editorial framework. The public repository
+contains source-linked metadata and newly authored/adapted guides; it does not
+contain the private Overleaf checkout, project access address, manuscript source,
+or its full internal audit/coding logs.
+
+## Discovery Maintenance
+
+`data/discovery.json` is the source of truth for the extended layer. Run
+`python3 scripts/generate_discovery.py --write` after changing it and use
+`--check` in CI. The generator validates evidence-state dates, class/subtype
+compatibility, duplicate JSON keys/IDs, source/metadata URLs, and mappings into
+curated records. It does not call the network or upgrade source-check status.
+
+Combined search matches either representation before returning a curated record
+once for a mapped work. Accordingly, an inherited tag/category/year can match
+while the returned curated record uses corrected metadata. Select the discovery
+collection to inspect the exact matching historical classification.

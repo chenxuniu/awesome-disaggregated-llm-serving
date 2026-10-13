@@ -32,6 +32,12 @@ def render(papers: list[dict]) -> str:
                       '|---|---|---|---|---|'])
         for p in group:
             work = f"<a name=\"{p['id']}\"></a>[{cell(p['title'])}]({markdown_url(link_for(p))})<br>{p['artifact_type']}"
+            if p.get('aliases'):
+                work += '<br>Also indexed as: ' + cell(', '.join(p['aliases']))
+            if p.get('operator_subtype'):
+                work += '<br>Boundary: ' + p['operator_subtype']
+            if p.get('related_sources'):
+                work += '<br>' + ' · '.join(f'[Version/source {i}]({markdown_url(url)})' for i, url in enumerate(p['related_sources'], 1))
             code = f"[Code]({markdown_url(p['code'])})" if p.get('code') else '—'
             lines.append(f"| {p['year']} / {cell(p['venue'])} | {work} | {code} | {p['status']} | {cell(p['why_it_matters'])}<br>**Scope:** {cell(p['limitation'])} |")
     return '\n'.join(lines) + '\n'
