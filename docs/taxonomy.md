@@ -3,6 +3,10 @@
 Disaggregated LLM serving is best understood as a design space, not a single
 architecture. This repo uses four axes.
 
+The matrix is a coarse reading orientation. Deployment topology and adaptation
+mechanisms are configuration-specific; use each source before treating an entry
+as an implementation specification.
+
 ## Axis 1: What Is Split
 
 | Split type | Meaning | Representative systems |
@@ -11,7 +15,8 @@ architecture. This repo uses four axes.
 | Operator split | Attention and FFN or experts run on separate resources | MegaScale-Infer, Step-3, JANUS, FinDEP |
 | State split | KV cache is stored, transferred, or pooled separately from compute | Mooncake, MemServe, LMCache, CacheGen |
 | Expert split | MoE experts are sharded, replicated, or migrated independently | DeepEP, Tutel, DeepSpeed-MoE, Lina |
-| Logical split | Work is interleaved without physical separation | SARATHI, TaiChi, MuxWise, Nexus |
+| Logical / temporal split | Chunking, multiplexing, or changing sharding on the same resources | SARATHI, TaiChi, MuxWise, Nexus, Helix |
+| Multimodal stage split | Encode and other stages are independently placed | EPD, vLLM-Omni, EAServe |
 
 ## Axis 2: Where The Split Is Realized
 
@@ -37,11 +42,11 @@ architecture. This repo uses four axes.
 
 | Timing | Description | Examples |
 |---|---|---|
-| Static | Deployment-time ratio or placement | MegaScale-Infer, Splitwise |
+| Static / offline provisioned | Ratio or placement is selected before serving | MegaScale-Infer, Splitwise, AFD-Ledger |
 | Per request | Router chooses a pool by request features | Mooncake-style policy, adaptive serving designs |
-| Per phase | Prefill/decode role or scheduling changes by phase | P/D-Serve, TaiChi |
+| Per phase / pool role | Scheduling or running-worker roles adapt | P/D-Serve, TaiChi, DynaServe, FluidPD |
 | Per expert | Expert placement or dispatch adapts by load | JANUS, FinDEP, DeepEP-related systems |
-| Elastic | Membership and placement can change while service remains live | Elastic AFD proposals, LoongServe-style elasticity |
+| Elastic | Membership, worker roles, or placement change during service | LoongServe, FluidPD |
 
 ## Representative Matrix
 
@@ -60,7 +65,10 @@ architecture. This repo uses four axes.
 | Step-3 / StepMesh | Operator + expert | Inter-node | Bipartite RDMA communication | Static / system-specific |
 | JANUS | Operator + expert | Inter-node | Activation and expert exchange | Dynamic components |
 | FinDEP | Expert / operator | Inter-node | Fine-grained DEP scheduling | Dynamic components |
-| DeepSeek-V3 / DeepEP | Expert | Intra- and inter-node | All-to-all expert communication | Static deployment |
+| DeepSeek-V3 / DeepEP | Expert | Intra- and inter-node | Expert dispatch/combine | Runtime/configuration-specific |
+| Helix | KV / temporal operator sharding | Supported GPU group | Attention KV parallelism, then FFN TP/EP | Per operator |
+| FluidPD | Phase / worker role | Worker pools | Bounded prefill offload + role reassignment | Adaptive |
+| vLLM-Omni | Multimodal stage graph | Independently placed engines | Stage connectors | Stage-specific |
 
 ## How To Read The Space
 
@@ -79,3 +87,24 @@ For AFD specifically, the central question is:
 That question requires both systems measurement and a theory of the hardware,
 model, traffic, and fabric regime.
 
+
+## Distinctions That Prevent Misclassification
+
+- **PD versus AFD:** PD moves prompt state at a phase boundary; AFD repeatedly
+  exchanges activations between attention and FFN/expert sides. Their critical
+  communication paths differ.
+- **EP versus DEP/AFD:** sharding experts and using all-to-all communication does
+  not by itself establish physically separate attention and expert pools.
+- **Cache reuse versus state disaggregation:** local prefix reuse, remote reuse,
+  CPU offload, and a distributed KV store are different placements/policies.
+- **Spatial versus temporal separation:** Helix reuses GPUs with different
+  attention/FFN sharding; do not label it as dedicated spatial AFD pools.
+- **EPD versus text-only PD:** encoder computation, embeddings, modality mix, and
+  stage graph dependencies require additional resource and latency accounting.
+- **Runtime versus transport:** NIXL, Mooncake Transfer Engine, StepMesh, and
+  DeepEP expose different communication/state primitives; a library alone does
+  not specify routing, provisioning, or admission policy.
+
+These are editorial classification rules grounded in the linked works. See the
+[complete catalog](catalog.md), [systems directory](systems.md), and
+[evaluation guide](evaluation.md) for sources and deployment boundaries.

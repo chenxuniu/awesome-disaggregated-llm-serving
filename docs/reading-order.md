@@ -1,83 +1,72 @@
-# Reading Order
+# Reading Paths
 
-This page gives different paths depending on how much time you have.
+All entries link to [the catalog](catalog.md), which contains the primary source,
+associated artifact, contribution, and scope. These paths are editorial choices.
 
-## 30-Minute Route
+## 30 Minutes: Understand the Main Tradeoff
 
-Read abstracts and figures only.
+Read abstracts and system diagrams rather than complete papers.
 
-1. DistServe
-2. Mooncake
-3. MegaScale-Infer
-4. Analytical Provisioning for AFD
-5. Revealing the Challenges of AFD
-6. SARATHI or TaiChi
+1. [DistServe](catalog.md#distserve): separate phases and optimize SLO-constrained goodput.
+2. [Mooncake](catalog.md#mooncake): make KV state and reuse central to placement.
+3. [MegaScale-Infer](catalog.md#megascale-infer): separate attention and expert computation.
+4. [AFD challenges](catalog.md#afd-challenges): inspect communication and imbalance limits.
+5. [Sarathi-Serve](catalog.md#sarathi-serve) or [TaiChi](catalog.md#taichi): understand a strong alternative.
 
-Outcome: you will understand the core conflict between disaggregation and
-re-aggregation.
+The question to retain is when specialization and interference reduction repay
+transfer, synchronization, and reserved-capacity costs.
 
-## One-Day Route
+## One Day: Foundations and Comparisons
 
-Read these in order:
+1. [Orca](catalog.md#orca) and [vLLM](catalog.md#vllm): scheduling and KV memory.
+2. [Splitwise](catalog.md#splitwise) and [DistServe](catalog.md#distserve): phase splitting.
+3. [Mooncake](catalog.md#mooncake): cache-centric architecture.
+4. [Sarathi-Serve](catalog.md#sarathi-serve): tune the colocated baseline.
+5. [MegaScale-Infer](catalog.md#megascale-infer) and [Step-3](catalog.md#step3): operator/expert separation.
+6. [AFD provisioning](catalog.md#analytical-afd) and [AFD challenges](catalog.md#afd-challenges): ratios and limits.
+7. [AFD-Ledger](catalog.md#afd-ledger): compare independently provisioned architectures.
 
-1. Orca
-2. vLLM / PagedAttention
-3. Splitwise
-4. DistServe
-5. Mooncake
-6. SARATHI / Sarathi-Serve
-7. MegaScale-Infer
-8. Step-3 / StepMesh
-9. Analytical Provisioning for AFD
-10. Revealing the Challenges of AFD
+Skim methods and evaluation assumptions before reading all implementation details.
 
-Outcome: you will understand the serving substrate, PD disaggregation, AFD,
-and the main limitations.
+## Write Related Work
 
-## Writing Related Work
+- **Foundations:** [Orca](catalog.md#orca), [vLLM](catalog.md#vllm), [SGLang](catalog.md#sglang).
+- **PD:** [Splitwise](catalog.md#splitwise), [DistServe](catalog.md#distserve),
+  [P/D-Serve](catalog.md#pdserve), [DynaServe](catalog.md#dynaserve), [FluidPD](catalog.md#fluidpd).
+- **State:** [Mooncake](catalog.md#mooncake), [MemServe](catalog.md#memserve),
+  [CacheGen](catalog.md#cachegen), [LMCache](catalog.md#lmcache), [FlowKV](catalog.md#flowkv).
+- **AFD/DEP:** [MegaScale-Infer](catalog.md#megascale-infer), [Step-3](catalog.md#step3),
+  [JANUS](catalog.md#janus-afd), [FinDEP](catalog.md#findep), [Adrenaline](catalog.md#adrenaline).
+- **Boundaries/provisioning:** [AFD challenges](catalog.md#afd-challenges),
+  [How Far Can Disaggregation Go?](catalog.md#afd-design-space), [AFD-Ledger](catalog.md#afd-ledger).
+- **Alternatives:** [Sarathi-Serve](catalog.md#sarathi-serve), [TaiChi](catalog.md#taichi),
+  [MuxWise](catalog.md#muxwise), [Nexus](catalog.md#nexus), [Helix](catalog.md#helix-parallelism).
+- **Multimodal:** [EPD](catalog.md#epd-disaggregation), [vLLM-Omni](catalog.md#vllm-omni),
+  [EAServe](catalog.md#easerve).
+- **Hardware/power:** [Mélange](catalog.md#melange), [SQD](catalog.md#sqd),
+  [power-aware provisioning](catalog.md#power-provisioning-pd), [DQ](catalog.md#disaggregated-quantization).
 
-Use this ordering:
+Select work that addresses your actual split and objective. A transfer library,
+a deployed runtime, and a paper are different kinds of evidence.
 
-1. Serving foundations: Orca, vLLM, SGLang
-2. PD disaggregation: Splitwise, DistServe, Mooncake, P/D-Serve
-3. KV cache substrate: CacheGen, FlowKV, LMCache, MemServe
-4. AFD and DEP: MegaScale-Infer, Step-3, JANUS, FinDEP, Adrenaline
-5. Theory and limits: Analytical Provisioning, Revealing Challenges
-6. Counter-baselines: SARATHI, TaiChi, MuxWise, Nexus
-7. MoE substrate: DeepSeek-V3, DeepEP, Tutel, DeepSpeed-MoE, Lina
+## Build or Evaluate a PD Service
 
-Outcome: your related work will avoid the common mistake of treating AFD,
-PD disaggregation, and chunked prefill as unrelated islands.
+1. [Practical guide](practical-guide.md) and [systems directory](systems.md).
+2. The official engine/connector/router guide for a pinned release.
+3. [DistServe](catalog.md#distserve), [Mooncake](catalog.md#mooncake), and [Sarathi-Serve](catalog.md#sarathi-serve).
+4. [DynaServe](catalog.md#dynaserve), [prefill deflection](catalog.md#prefill-deflection), and [FluidPD](catalog.md#fluidpd).
+5. [Evaluation protocol](evaluation.md) and [BurstGPT](catalog.md#burstgpt).
 
-## Building An AFD System
+## Build or Evaluate AFD
 
-Start with:
+1. [MegaScale-Infer](catalog.md#megascale-infer) and [Step-3](catalog.md#step3).
+2. [StepMesh](catalog.md#stepmesh) and [DeepEP](catalog.md#deepep), checking their distinct roles.
+3. [AFD provisioning](catalog.md#analytical-afd), [AFD challenges](catalog.md#afd-challenges), and [AFD-Ledger](catalog.md#afd-ledger).
+4. [Helix](catalog.md#helix-parallelism) for the long-context temporal alternative.
+5. [Evaluation protocol](evaluation.md), especially equal-budget provisioning and communication accounting.
 
-1. MegaScale-Infer
-2. Step-3
-3. StepMesh
-4. DeepSeek-V3 and DeepEP
-5. SGLang and vLLM deployment docs
-6. Analytical Provisioning for AFD
-7. Revealing the Challenges of AFD
-8. TaiChi / SARATHI as baselines
+## Choose a Research Question
 
-Outcome: you will see both the implementation path and the strongest attacks
-against the design.
-
-## Looking For A Research Problem
-
-Read:
-
-1. Analytical Provisioning for AFD
-2. Revealing the Challenges of AFD
-3. MegaScale-Infer
-4. TaiChi
-5. Mooncake
-6. FlowKV
-7. BurstGPT and Mooncake traces
-8. docs/open-problems.md
-
-Outcome: you will see where static provisioning, communication dead zones,
-heterogeneity, and workload shift create publishable gaps.
-
+Use [research questions](open-problems.md) after identifying an existing mechanism
+and its evaluation boundaries. Read the nearest recent work before calling a
+direction unexplored. The [timeline](timeline.md) helps locate newer anchors.

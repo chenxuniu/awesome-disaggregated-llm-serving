@@ -1,0 +1,31 @@
+name: Add or correct a resource
+description: Suggest a source-grounded paper, artifact, or metadata correction.
+title: '[Resource] '
+body:
+  - type: input
+    id: identity
+    attributes:
+      label: Work title or existing catalog ID
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Primary source URL
+      description: Official paper, proceedings, or author/project repository.
+    validations:
+      required: true
+  - type: textarea
+    id: relevance
+    attributes:
+      label: Contribution and relevance
+      description: Explain the mechanism and its connection to disaggregated serving.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope, evidence, and associated code
+      description: Identify measured vs simulated results, artifact association, and any proposed correction.
+    validations:
+      required: true
