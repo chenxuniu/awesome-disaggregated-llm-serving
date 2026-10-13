@@ -1,8 +1,7 @@
-# Structured paper database for Awesome AFD and Disaggregated LLM Serving.
-# Impact tiers are editorial labels: foundational, production, boundary,
-# theory, counter-baseline, substrate, or adjacent.
+# Curated source of truth. Flat records use JSON values.
+# Source checks do not claim GPU reproduction or full-text re-coding.
 
-- id: distserve
+- id: "distserve"
   title: "DistServe: Disaggregating Prefill and Decoding for Goodput-optimized Large Language Model Serving"
   year: 2024
   venue: "OSDI"
@@ -13,8 +12,11 @@
   tags: ["PD", "goodput", "SLO", "scheduling"]
   why_it_matters: "Canonical PD-disaggregation system and one of the clearest TTFT/TPOT goodput framings."
   limitation: "Mostly studies phase split; operator-level AFD is outside scope."
+  source: "https://arxiv.org/abs/2401.09670"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: splitwise
+- id: "splitwise"
   title: "Splitwise: Efficient Generative LLM Inference Using Phase Splitting"
   year: 2024
   venue: "ISCA"
@@ -25,8 +27,11 @@
   tags: ["PD", "phase-splitting", "heterogeneous-GPU", "cost"]
   why_it_matters: "Early and influential argument for serving prefill and decode on different hardware tiers."
   limitation: "Static phase-splitting model does not cover newer AFD/MoE operator splits."
+  source: "https://arxiv.org/abs/2311.18677"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: mooncake
+- id: "mooncake"
   title: "Mooncake: A KVCache-centric Disaggregated Architecture for LLM Serving"
   year: 2025
   venue: "FAST"
@@ -37,20 +42,28 @@
   tags: ["PD", "KV-cache", "RDMA", "trace", "production"]
   why_it_matters: "Turns KV cache into the central disaggregation primitive and releases production-style traces."
   limitation: "KV-centric phase disaggregation; not a full AFD system."
+  source: "https://arxiv.org/abs/2407.00079"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: tetriinfer
-  title: "Inference without Interference: Disaggregate LLM Inference for Mixed Downstream Workloads"
-  year: 2024
-  venue: "arXiv"
+- id: "tetriinfer"
+  title: "ShuffleInfer: Disaggregate LLM Inference for Mixed Downstream Workloads"
+  year: 2025
+  venue: "ACM TACO"
   category: "pd-disaggregation"
   status: "adjacent"
   arxiv: "2401.11181"
   code: null
   tags: ["PD", "mixed-workload", "interference"]
   why_it_matters: "Studies interference between heterogeneous inference workloads under disaggregated serving."
-  limitation: "Less central than DistServe and Splitwise for the AFD line."
+  limitation: "The earlier TetriInfer preprint has a ShuffleInfer archival version; inspect the selected version before reusing claims or configurations."
+  source: "https://doi.org/10.1145/3732941"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["TetriInfer", "ShuffleInfer"]
+  related_sources: ["https://arxiv.org/abs/2401.11181"]
 
-- id: memserve
+- id: "memserve"
   title: "MemServe: Context Caching for Disaggregated LLM Serving with Elastic Memory Pool"
   year: 2024
   venue: "arXiv"
@@ -61,20 +74,26 @@
   tags: ["KV-cache", "memory-pool", "elasticity"]
   why_it_matters: "Explores elastic memory pooling for context reuse in disaggregated serving."
   limitation: "Primarily state-centric rather than operator-centric."
+  source: "https://arxiv.org/abs/2406.17565"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: loongserve
+- id: "loongserve"
   title: "LoongServe: Efficiently Serving Long-Context Large Language Models with Elastic Sequence Parallelism"
   year: 2024
   venue: "SOSP"
   category: "pd-disaggregation"
   status: "substrate"
   arxiv: "2404.09526"
-  code: null
+  code: "https://github.com/LoongServe/LoongServe"
   tags: ["long-context", "sequence-parallelism", "elasticity"]
   why_it_matters: "Shows long-context serving stresses static placement and motivates elastic execution."
   limitation: "Sequence-parallel long-context serving is adjacent to, not identical with, AFD."
+  source: "https://arxiv.org/abs/2404.09526"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: pdserve
+- id: "pdserve"
   title: "P/D-Serve: Serving Disaggregated Large Language Model at Scale"
   year: 2024
   venue: "arXiv"
@@ -85,32 +104,41 @@
   tags: ["PD", "scale", "production"]
   why_it_matters: "Studies practical issues in scaling PD-disaggregated serving."
   limitation: "Does not address attention/FFN operator disaggregation."
+  source: "https://arxiv.org/abs/2408.08147"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: dejavu
+- id: "dejavu"
   title: "DejaVu: KV-cache Streaming for Fast, Fault-tolerant Generative LLM Serving"
   year: 2024
   venue: "ICML"
   category: "kv-cache"
   status: "substrate"
   arxiv: "2403.01876"
-  code: null
+  code: "https://github.com/msr-fiddle/dejavu"
   tags: ["KV-cache", "streaming", "fault-tolerance"]
   why_it_matters: "Makes KV streaming and fault tolerance first-class serving concerns."
   limitation: "Not focused on MoE or AFD."
+  source: "https://arxiv.org/abs/2403.01876"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: llumnix
+- id: "llumnix"
   title: "Llumnix: Dynamic Scheduling for Large Language Model Serving"
   year: 2024
   venue: "OSDI"
   category: "serving-foundation"
   status: "substrate"
   arxiv: "2406.03243"
-  code: null
+  code: "https://github.com/AlibabaPAI/llumnix"
   tags: ["scheduling", "migration", "elasticity"]
   why_it_matters: "Dynamic migration and scheduling are important building blocks for elastic disaggregation."
   limitation: "General serving scheduler rather than a dedicated disaggregation architecture."
+  source: "https://arxiv.org/abs/2406.03243"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: megascale-infer
+- id: "megascale-infer"
   title: "MegaScale-Infer: Serving Mixture-of-Experts at Scale with Disaggregated Expert Parallelism"
   year: 2025
   venue: "SIGCOMM"
@@ -121,8 +149,12 @@
   tags: ["AFD", "DEP", "MoE", "expert-parallelism", "heterogeneous-GPU"]
   why_it_matters: "Foundational system paper making attention/FFN and expert disaggregation concrete at production scale."
   limitation: "Relies on static provisioning and strong communication assumptions."
+  source: "https://arxiv.org/abs/2504.02263"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  operator_subtype: "full-attention"
 
-- id: step3
+- id: "step3"
   title: "Step-3 is Large yet Affordable: Model-System Co-design for Cost-effective Decoding"
   year: 2025
   venue: "arXiv"
@@ -132,9 +164,13 @@
   code: "https://github.com/stepfun-ai/StepMesh"
   tags: ["AFD", "model-system-co-design", "communication", "StepMesh"]
   why_it_matters: "A production-oriented AFD design paired with an open communication library."
-  limitation: "Model-specific co-design makes generality an open question."
+  limitation: "Model-specific co-design; the linked StepMesh artifact is its communication library, not a complete serving reproduction."
+  source: "https://arxiv.org/abs/2507.19427"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  operator_subtype: "full-attention"
 
-- id: stepmesh
+- id: "stepmesh"
   title: "StepMesh: A High-Performance, Low-Latency Communication Library for Attention-FFN Disaggregation"
   year: 2025
   venue: "GitHub"
@@ -145,8 +181,11 @@
   tags: ["AFD", "RDMA", "communication-library", "bipartite-communication"]
   why_it_matters: "One of the clearest open-source communication substrates built specifically for AFD."
   limitation: "Library-level artifact; end-to-end serving claims depend on integration."
+  source: "https://github.com/stepfun-ai/StepMesh"
+  verified: "2026-10-13"
+  artifact_type: "library"
 
-- id: janus-afd
+- id: "janus-afd"
   title: "JANUS: Disaggregating Attention and Experts for Scalable MoE Inference"
   year: 2025
   venue: "arXiv"
@@ -157,8 +196,12 @@
   tags: ["AFD", "MoE", "experts", "scheduling"]
   why_it_matters: "Extends the attention/expert disaggregation line beyond MegaScale-Infer."
   limitation: "Open questions remain around dynamic placement, jitter, and multi-rack behavior."
+  source: "https://arxiv.org/abs/2512.13525"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  operator_subtype: "full-attention"
 
-- id: findep
+- id: "findep"
   title: "Efficient MoE Inference with Fine-Grained Scheduling of Disaggregated Expert Parallelism"
   year: 2025
   venue: "arXiv"
@@ -169,8 +212,12 @@
   tags: ["DEP", "MoE", "fine-grained-scheduling"]
   why_it_matters: "Targets scheduling inefficiencies inside disaggregated expert-parallel inference."
   limitation: "Builds on the DEP premise rather than resolving when DEP should be used."
+  source: "https://arxiv.org/abs/2512.21487"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  operator_subtype: "full-attention"
 
-- id: adrenaline
+- id: "adrenaline"
   title: "Injecting Adrenaline into LLM Serving: Boosting Resource Utilization and Throughput via Attention Disaggregation"
   year: 2025
   venue: "arXiv"
@@ -181,8 +228,12 @@
   tags: ["attention-disaggregation", "offloading", "decode"]
   why_it_matters: "A partial-AFD design that offloads attention work to improve utilization."
   limitation: "Offloading ratio and synchronization costs remain difficult to generalize."
+  source: "https://arxiv.org/abs/2503.20552"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  operator_subtype: "borrowed-attention"
 
-- id: analytical-afd
+- id: "analytical-afd"
   title: "Analytical Provisioning for Attention-FFN Disaggregated LLM Serving under Stochastic Workloads"
   year: 2026
   venue: "arXiv"
@@ -191,10 +242,13 @@
   arxiv: "2601.21351"
   code: null
   tags: ["AFD", "provisioning", "stochastic-workloads", "A-F-ratio"]
-  why_it_matters: "First clear analytical framework for A/F ratio provisioning under stochastic workloads."
+  why_it_matters: "Provides an analytical framework for A/F ratio provisioning under stochastic workloads."
   limitation: "Theory needs broader validation under real systems, online adaptation, and fabric constraints."
+  source: "https://arxiv.org/abs/2601.21351"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: afd-challenges
+- id: "afd-challenges"
   title: "Revealing the Challenges of Attention-FFN Disaggregation for Modern MoE Models and Hardware Systems"
   year: 2026
   venue: "arXiv"
@@ -205,20 +259,26 @@
   tags: ["AFD", "roofline", "interconnect", "dead-zone", "MoE"]
   why_it_matters: "Important boundary study showing when AFD fails due to communication and imbalance."
   limitation: "Primarily analysis; mitigation remains open."
+  source: "https://arxiv.org/abs/2602.09721"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: deepseek-v3
+- id: "deepseek-v3"
   title: "DeepSeek-V3 Technical Report"
   year: 2024
   venue: "arXiv"
   category: "moe-serving"
   status: "production"
   arxiv: "2412.19437"
-  code: null
+  code: "https://github.com/deepseek-ai/DeepSeek-V3"
   tags: ["MoE", "DeepEP", "expert-parallelism", "production"]
   why_it_matters: "Production-scale MoE inference reference that motivates AFD and DEP designs."
   limitation: "System details are only partially public."
+  source: "https://arxiv.org/abs/2412.19437"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: deepep
+- id: "deepep"
   title: "DeepEP: An Efficient Expert-Parallel Communication Library"
   year: 2025
   venue: "GitHub"
@@ -229,8 +289,11 @@
   tags: ["MoE", "expert-parallelism", "all-to-all", "communication"]
   why_it_matters: "Widely referenced communication substrate for large MoE inference."
   limitation: "Communication primitive, not a full serving policy."
+  source: "https://github.com/deepseek-ai/DeepEP"
+  verified: "2026-10-13"
+  artifact_type: "library"
 
-- id: sarathi
+- id: "sarathi"
   title: "SARATHI: Efficient LLM Inference by Piggybacking Decodes with Chunked Prefills"
   year: 2023
   venue: "arXiv"
@@ -241,20 +304,26 @@
   tags: ["chunked-prefill", "reaggregation", "scheduling"]
   why_it_matters: "Core counter-argument that co-located chunked prefill can avoid disaggregation overhead."
   limitation: "Does not separately provision memory-heavy and compute-heavy resources."
+  source: "https://arxiv.org/abs/2308.16369"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: sarathi-serve
+- id: "sarathi-serve"
   title: "Taming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve"
   year: 2024
   venue: "OSDI"
   category: "reaggregation"
   status: "counter-baseline"
   arxiv: "2403.02310"
-  code: null
+  code: "https://github.com/microsoft/sarathi-serve"
   tags: ["chunked-prefill", "goodput", "serving"]
   why_it_matters: "Strong production-style baseline against PD disaggregation."
   limitation: "Does not expose an A/F provisioning knob."
+  source: "https://arxiv.org/abs/2403.02310"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: taichi
+- id: "taichi"
   title: "Prefill-Decode Aggregation or Disaggregation? Unifying Both for Goodput-Optimized LLM Serving"
   year: 2025
   venue: "arXiv"
@@ -265,8 +334,11 @@
   tags: ["PD", "aggregation", "disaggregation", "goodput"]
   why_it_matters: "Argues that aggregation and disaggregation should be unified rather than treated as binary choices."
   limitation: "AFD-specific operator split is not the main target."
+  source: "https://arxiv.org/abs/2508.01989"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: muxwise
+- id: "muxwise"
   title: "Towards High-Goodput LLM Serving with Prefill-decode Multiplexing"
   year: 2025
   venue: "arXiv"
@@ -277,8 +349,11 @@
   tags: ["PD", "multiplexing", "goodput"]
   why_it_matters: "Strengthens the case that smart multiplexing can compete with physical disaggregation."
   limitation: "Not designed for MoE attention/FFN separation."
+  source: "https://arxiv.org/abs/2504.14489"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: nexus
+- id: "nexus"
   title: "Nexus: Proactive Intra-GPU Disaggregation of Prefill and Decode in LLM Serving"
   year: 2025
   venue: "arXiv"
@@ -289,8 +364,11 @@
   tags: ["intra-GPU", "PD", "proactive", "scheduling"]
   why_it_matters: "Shows disaggregation can be logical or intra-GPU, not only physical inter-node separation."
   limitation: "Different cost model from rack-scale PD or AFD."
+  source: "https://arxiv.org/abs/2507.06608"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: flowkv
+- id: "flowkv"
   title: "FlowKV: A Disaggregated Inference Framework with Low-Latency KV Cache Transfer and Load-Aware Scheduling"
   year: 2025
   venue: "arXiv"
@@ -301,32 +379,41 @@
   tags: ["KV-cache", "transfer", "load-aware-scheduling"]
   why_it_matters: "Targets the state-transfer bottleneck that constrains PD and AFD systems."
   limitation: "KV transfer improvement does not alone solve operator provisioning."
+  source: "https://arxiv.org/abs/2504.03775"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: cachegen
+- id: "cachegen"
   title: "CacheGen: KV Cache Compression and Streaming for Fast Large Language Model Serving"
   year: 2024
   venue: "SIGCOMM"
   category: "kv-cache"
   status: "substrate"
   arxiv: "2310.07240"
-  code: null
+  code: "https://github.com/UChi-JCL/CacheGen"
   tags: ["KV-cache", "compression", "streaming"]
   why_it_matters: "Compression and streaming are essential when disaggregation turns KV into network traffic."
   limitation: "Focuses on KV cache rather than broader split decisions."
+  source: "https://arxiv.org/abs/2310.07240"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: lmcache
+- id: "lmcache"
   title: "LMCache: An Efficient KV Cache Layer for Enterprise-Scale LLM Inference"
   year: 2025
   venue: "arXiv"
   category: "kv-cache"
   status: "substrate"
   arxiv: "2510.09665"
-  code: null
+  code: "https://github.com/LMCache/LMCache"
   tags: ["KV-cache", "enterprise-serving", "reuse"]
   why_it_matters: "Makes cache reuse a reusable serving layer."
   limitation: "AFD integration remains an open design question."
+  source: "https://arxiv.org/abs/2510.09665"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: cachedattention
+- id: "cachedattention"
   title: "Cost-Efficient Large Language Model Serving for Multi-turn Conversations with CachedAttention"
   year: 2024
   venue: "USENIX ATC"
@@ -337,20 +424,26 @@
   tags: ["KV-cache", "multi-turn", "reuse"]
   why_it_matters: "Shows conversation-level cache reuse changes serving economics."
   limitation: "Disaggregated placement is not the main focus."
+  source: "https://arxiv.org/abs/2403.19708"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: cacheblend
+- id: "cacheblend"
   title: "CacheBlend: Fast Large Language Model Serving for RAG with Cached Knowledge Fusion"
   year: 2025
   venue: "EuroSys"
   category: "kv-cache"
   status: "substrate"
   arxiv: "2405.16444"
-  code: null
+  code: "https://github.com/LMCache/LMCache"
   tags: ["KV-cache", "RAG", "reuse"]
   why_it_matters: "Connects cache reuse with RAG serving, a workload class that stresses disaggregated state."
   limitation: "RAG-specific; not a general AFD system."
+  source: "https://arxiv.org/abs/2405.16444"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: pensieve
+- id: "pensieve"
   title: "Stateful Large Language Model Serving with Pensieve"
   year: 2025
   venue: "EuroSys"
@@ -361,8 +454,11 @@
   tags: ["stateful-serving", "KV-cache", "multi-turn"]
   why_it_matters: "Frames long-lived state as a first-class serving primitive."
   limitation: "Does not resolve attention/FFN provisioning."
+  source: "https://arxiv.org/abs/2312.05516"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: ragcache
+- id: "ragcache"
   title: "RAGCache: Efficient Knowledge Caching for Retrieval-Augmented Generation"
   year: 2024
   venue: "arXiv"
@@ -373,8 +469,11 @@
   tags: ["RAG", "cache", "KV-cache"]
   why_it_matters: "Important adjacent work for cache-heavy serving workloads."
   limitation: "RAG-centric rather than disaggregation-centric."
+  source: "https://arxiv.org/abs/2404.12457"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: infinitellm
+- id: "infinitellm"
   title: "Infinite-LLM: Efficient LLM Service for Long Context with DistAttention and Distributed KVCache"
   year: 2024
   venue: "arXiv"
@@ -385,8 +484,11 @@
   tags: ["long-context", "distributed-KV-cache", "attention"]
   why_it_matters: "Long-context serving amplifies the need for distributed KV and attention-side design."
   limitation: "Long-context attention focus; not directly AFD."
+  source: "https://arxiv.org/abs/2401.02669"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: vllm
+- id: "vllm"
   title: "Efficient Memory Management for Large Language Model Serving with PagedAttention"
   year: 2023
   venue: "SOSP"
@@ -397,8 +499,11 @@
   tags: ["serving", "PagedAttention", "KV-cache"]
   why_it_matters: "Baseline runtime and memory-management foundation for modern LLM serving."
   limitation: "Originally not designed around physical PD or AFD separation."
+  source: "https://arxiv.org/abs/2309.06180"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: sglang
+- id: "sglang"
   title: "SGLang: Efficient Execution of Structured Language Model Programs"
   year: 2024
   venue: "NeurIPS"
@@ -409,8 +514,11 @@
   tags: ["serving", "runtime", "structured-generation", "expert-parallelism"]
   why_it_matters: "Important open runtime for modern high-throughput serving and MoE deployment practice."
   limitation: "Not itself a single disaggregation paper."
+  source: "https://arxiv.org/abs/2312.07104"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: orca
+- id: "orca"
   title: "Orca: A Distributed Serving System for Transformer-Based Generative Models"
   year: 2022
   venue: "OSDI"
@@ -421,8 +529,11 @@
   tags: ["continuous-batching", "serving", "scheduling"]
   why_it_matters: "Foundation for iteration-level scheduling and continuous batching."
   limitation: "Predates most PD and AFD work."
+  source: "https://www.usenix.org/conference/osdi22/presentation/yu"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: gshard
+- id: "gshard"
   title: "GShard: Scaling Giant Models with Conditional Computation and Automatic Sharding"
   year: 2021
   venue: "ICLR"
@@ -433,8 +544,11 @@
   tags: ["MoE", "sharding", "conditional-computation"]
   why_it_matters: "Foundational sparse-model and sharding work behind later MoE serving systems."
   limitation: "Training-oriented compared with modern serving papers."
+  source: "https://arxiv.org/abs/2006.16668"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: switch-transformer
+- id: "switch-transformer"
   title: "Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity"
   year: 2022
   venue: "JMLR"
@@ -445,8 +559,11 @@
   tags: ["MoE", "sparsity", "routing"]
   why_it_matters: "Popularized simple sparse expert routing at large scale."
   limitation: "Model architecture focus; not a serving system."
+  source: "https://arxiv.org/abs/2101.03961"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: deepspeed-moe
+- id: "deepspeed-moe"
   title: "DeepSpeed-MoE: Advancing Mixture-of-Experts Inference and Training to Power Next-Generation AI Scale"
   year: 2022
   venue: "ICML"
@@ -457,32 +574,41 @@
   tags: ["MoE", "inference", "training", "systems"]
   why_it_matters: "Early system substrate for MoE training and inference at scale."
   limitation: "Not designed around attention/FFN disaggregation."
+  source: "https://arxiv.org/abs/2201.05596"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: tutel
+- id: "tutel"
   title: "Tutel: Adaptive Mixture-of-Experts at Scale"
   year: 2023
   venue: "MLSys"
   category: "moe-serving"
   status: "substrate"
   arxiv: "2206.03382"
-  code: null
+  code: "https://github.com/microsoft/Tutel"
   tags: ["MoE", "expert-parallelism", "systems"]
   why_it_matters: "Important MoE system substrate for expert-parallel execution."
   limitation: "General MoE substrate rather than AFD policy."
+  source: "https://arxiv.org/abs/2206.03382"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: fastmoe
+- id: "fastmoe"
   title: "FastMoE: A Fast Mixture-of-Expert Training System"
   year: 2021
   venue: "arXiv"
   category: "moe-serving"
   status: "substrate"
   arxiv: "2103.13262"
-  code: null
+  code: "https://github.com/laekov/fastmoe"
   tags: ["MoE", "systems", "expert-parallelism"]
   why_it_matters: "Earlier MoE system work that informs expert-parallel communication."
   limitation: "Training-oriented and earlier than current serving constraints."
+  source: "https://arxiv.org/abs/2103.13262"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: lina
+- id: "lina"
   title: "Accelerating Distributed MoE Training and Inference with Lina"
   year: 2023
   venue: "USENIX ATC"
@@ -493,32 +619,43 @@
   tags: ["MoE", "training", "inference", "communication"]
   why_it_matters: "Bridges MoE training and inference communication optimization."
   limitation: "Not an AFD-specific serving design."
+  source: "https://arxiv.org/abs/2210.17223"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: frontier
-  title: "Frontier: Simulating the Next Generation of LLM Inference Systems"
-  year: 2025
-  venue: "Workshop"
-  category: "evaluation"
-  status: "substrate"
-  arxiv: "2508.03148"
-  code: null
-  tags: ["simulation", "PD", "AFD", "evaluation"]
-  why_it_matters: "Simulation frameworks are essential for comparing disaggregated serving policies."
-  limitation: "Simulator conclusions depend heavily on model calibration."
-
-- id: burstgpt
-  title: "BurstGPT: A Real-World Workload Dataset to Optimize LLM Serving Systems"
-  year: 2024
+- id: "frontier"
+  title: "Frontier: Towards Comprehensive and Accurate LLM Inference Simulation"
+  year: 2026
   venue: "arXiv"
   category: "evaluation"
   status: "substrate"
-  arxiv: "2401.17644"
+  arxiv: "2605.21312"
   code: null
+  tags: ["simulation", "PD", "AFD", "evaluation"]
+  why_it_matters: "Extended simulator comparing colocated, PD, and AFD deployments with explicit computation and communication models."
+  limitation: "The extended version replaces the earlier workshop entry; predictions still require target-runtime, workload, and fabric calibration."
+  source: "https://arxiv.org/abs/2605.21312"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["Frontier", "Frontier: Simulating the Next Generation of LLM Inference Systems"]
+  related_sources: ["https://arxiv.org/abs/2508.03148"]
+
+- id: "burstgpt"
+  title: "BurstGPT: A Real-World Workload Dataset to Optimize LLM Serving Systems"
+  year: 2025
+  venue: "KDD"
+  category: "evaluation"
+  status: "substrate"
+  arxiv: "2401.17644"
+  code: "https://github.com/HPMLL/BurstGPT"
   tags: ["workload", "trace", "bursty-traffic", "evaluation"]
   why_it_matters: "Workload traces are needed to evaluate static versus adaptive disaggregation."
   limitation: "Trace availability does not by itself define a benchmark."
+  source: "https://arxiv.org/abs/2401.17644"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: spotserve
+- id: "spotserve"
   title: "SpotServe: Serving Generative Large Language Models on Preemptible Instances"
   year: 2024
   venue: "ASPLOS"
@@ -529,8 +666,11 @@
   tags: ["cloud", "preemptible", "heterogeneous-serving"]
   why_it_matters: "Shows serving placement must handle unreliable and heterogeneous resources."
   limitation: "Not specific to PD or AFD."
+  source: "https://arxiv.org/abs/2311.15566"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: spad
+- id: "spad"
   title: "SPAD: Specialized Prefill and Decode Hardware for Disaggregated LLM Inference"
   year: 2025
   venue: "arXiv"
@@ -541,8 +681,11 @@
   tags: ["hardware", "PD", "accelerator", "co-design"]
   why_it_matters: "Represents the hardware specialization side of the disaggregation argument."
   limitation: "Specialized hardware assumptions may not transfer to general GPU clusters."
+  source: "https://arxiv.org/abs/2510.08544"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: beyond-buzz
+- id: "beyond-buzz"
   title: "Beyond the Buzz: A Pragmatic Take on Inference Disaggregation"
   year: 2025
   venue: "arXiv"
@@ -553,16 +696,1492 @@
   tags: ["PD", "pragmatic", "evaluation", "limits"]
   why_it_matters: "Useful skeptical baseline for claims that disaggregation always wins."
   limitation: "Broad perspective; not a full AFD boundary theory."
+  source: "https://arxiv.org/abs/2506.05508"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
-- id: energy-disagg
+- id: "energy-disagg"
   title: "Revisiting Disaggregated Large Language Model Serving for Performance and Energy Implications"
-  year: 2026
+  year: 2025
   venue: "arXiv"
   category: "hardware-energy"
   status: "boundary"
   arxiv: "2601.08833"
   code: null
   tags: ["energy", "PD", "performance", "TCO"]
-  why_it_matters: "Connects disaggregated serving with energy and carbon-aware operation."
+  why_it_matters: "Studies performance and energy tradeoffs for PD-disaggregated serving; throughput improvements need not imply energy savings."
   limitation: "Energy-optimized AFD remains open."
+  source: "https://arxiv.org/abs/2601.08833"
+  verified: "2026-10-13"
+  artifact_type: "paper"
 
+- id: "dynaserve"
+  title: "Libra: Flexible Request Partitioning and Scheduling for Serving Unbalanced and Dynamic LLM Workloads"
+  year: 2026
+  venue: "NSDI"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2504.09285"
+  code: null
+  tags: ["PD", "elasticity", "scheduling"]
+  why_it_matters: "Partitions requests at flexible token boundaries and schedules cooperating micro-requests across unified GPU instances."
+  limitation: "Canonical NSDI 2026 follow-up to DynaServe; distinguish request partitioning from fixed prefill-only/decode-only pools."
+  source: "https://www.usenix.org/conference/nsdi26/presentation/ruan-libra"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["Libra", "DynaServe"]
+  related_sources: ["https://arxiv.org/abs/2504.09285"]
+
+- id: "vidur"
+  title: "Vidur: A Large-Scale Simulation Framework For LLM Inference"
+  year: 2024
+  venue: "MLSys"
+  category: "evaluation"
+  status: "substrate"
+  arxiv: "2405.05465"
+  code: "https://github.com/microsoft/vidur"
+  tags: ["simulation", "profiling", "configuration-search"]
+  why_it_matters: "Provides a profiled operator simulator and deployment search framework for serving experiments."
+  limitation: "AFD, network congestion, and new architectures require explicit extensions and calibration rather than assumed support."
+  source: "https://arxiv.org/abs/2405.05465"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "melange"
+  title: "Mélange: Cost Efficient Large Language Model Serving by Exploiting GPU Heterogeneity"
+  year: 2024
+  venue: "arXiv"
+  category: "hardware-energy"
+  status: "adjacent"
+  arxiv: "2404.14527"
+  code: null
+  tags: ["heterogeneous-GPU", "cost", "provisioning"]
+  why_it_matters: "Treats GPU selection as workload- and SLO-dependent cost allocation, useful for fair heterogeneous-serving baselines."
+  limitation: "Heterogeneous allocation is not itself a phase or operator disaggregation policy."
+  source: "https://arxiv.org/abs/2404.14527"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "afd-design-space"
+  title: "How Far Can Disaggregation Go? A Design-Space Exploration of Attention-FFN Disaggregation for Efficient MoE LLM Serving"
+  year: 2026
+  venue: "arXiv"
+  category: "afd-theory"
+  status: "boundary"
+  arxiv: "2605.28302"
+  code: null
+  tags: ["AFD", "MoE", "simulation", "SLO", "interconnect"]
+  why_it_matters: "Compares AFD with chunked-prefill and P/D baselines across context lengths, prefix reuse, and latency constraints."
+  limitation: "Evidence combines measured kernels with network simulation; validate conclusions on the target fabric."
+  source: "https://arxiv.org/abs/2605.28302"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "afd-ledger"
+  title: "AFD-Ledger: Deployment Provisioning for Attention--FFN Disaggregation"
+  year: 2026
+  venue: "arXiv"
+  category: "afd-theory"
+  status: "theory"
+  arxiv: "2608.04502"
+  code: null
+  tags: ["AFD", "provisioning", "heterogeneous-GPU", "cost"]
+  why_it_matters: "Jointly provisions AFD and collocated deployments under matched workload, TPOT, hardware catalog, and budget."
+  limitation: "Offline provisioning with bounded validation does not establish online elasticity or robustness to arbitrary workload shifts."
+  source: "https://arxiv.org/abs/2608.04502"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "sqd"
+  title: "Rethinking Heterogeneous System Disaggregation for Subquadratic Attention"
+  year: 2026
+  venue: "arXiv"
+  category: "hardware-energy"
+  status: "adjacent"
+  arxiv: "2609.13134"
+  code: null
+  tags: ["subquadratic-attention", "heterogeneous-hardware", "energy", "AFD"]
+  why_it_matters: "Splits decode around quadratic versus subquadratic attention resource demands rather than attention versus FFN alone."
+  limitation: "Hardware-proxy and analytical results need separate treatment from measurements on a deployed heterogeneous platform."
+  source: "https://arxiv.org/abs/2609.13134"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "dynacore"
+  title: "A Shape-Adaptive Architecture with Disaggregated Quantization for Efficient LLM Serving"
+  year: 2026
+  venue: "arXiv"
+  category: "hardware-energy"
+  status: "adjacent"
+  arxiv: "2610.07443"
+  code: null
+  tags: ["accelerator", "quantization", "PD", "co-design"]
+  why_it_matters: "Co-designs shape-adaptive execution and phase-specific quantization for changing prefill and decode batches."
+  limitation: "Custom accelerator design is not a drop-in GPU serving runtime or a cluster scheduling baseline."
+  source: "https://arxiv.org/abs/2610.07443"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "prefill-deflection"
+  title: "Towards Load-Aware Prefill Deflection for Disaggregated LLM Serving"
+  year: 2026
+  venue: "arXiv"
+  category: "reaggregation"
+  status: "counter-baseline"
+  arxiv: "2607.02043"
+  code: null
+  tags: ["PD", "chunked-prefill", "tail-latency", "routing"]
+  why_it_matters: "Deflects prefill onto decode-side slack while protecting active decodes, avoiding KV transfer for those requests."
+  limitation: "The reported DeepSeek-V2-Lite cluster evaluation does not establish the same behavior for large MoE or AFD."
+  source: "https://arxiv.org/abs/2607.02043"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "fluidpd"
+  title: "FluidPD: In-Place Elasticity for SLO-Aware Prefill-Decode Disaggregated LLM Serving"
+  year: 2026
+  venue: "arXiv"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2610.06917"
+  code: null
+  tags: ["PD", "elasticity", "role-switching", "SLO"]
+  why_it_matters: "Combines bounded prefill offload with in-place worker role reassignment to address transient and sustained imbalance."
+  limitation: "Recent preprint; compare adaptation overhead, decode SLO protection, and workload sensitivity before generalizing."
+  source: "https://arxiv.org/abs/2610.06917"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "power-provisioning-pd"
+  title: "Analytical Power-Aware Provisioning for Prefill-Decode Disaggregated AI Inference"
+  year: 2026
+  venue: "arXiv"
+  category: "hardware-energy"
+  status: "theory"
+  arxiv: "2609.24639"
+  code: null
+  tags: ["PD", "power", "provisioning", "queueing"]
+  why_it_matters: "Models serving-capacity and average-power Pareto fronts including input/output distributions and KV reservations."
+  limitation: "Analytical provisioning is distinct from validated online DVFS, AFD control, and full-cluster energy measurement."
+  source: "https://arxiv.org/abs/2609.24639"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "disaggregated-quantization"
+  title: "Disaggregated Quantization: Specializing LLM Prefill and Decode"
+  year: 2026
+  venue: "arXiv"
+  category: "hardware-energy"
+  status: "adjacent"
+  arxiv: "2609.26333"
+  code: null
+  tags: ["PD", "quantization", "accuracy", "offloading"]
+  why_it_matters: "Specializes prefill/decode compute formats, weights, and storage placement and evaluates accuracy under disaggregated serving."
+  limitation: "Additional weights and KV compatibility introduce memory, loading, and quality constraints; not all variants use separate GPUs."
+  source: "https://arxiv.org/abs/2609.26333"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "multi-vendor-pd"
+  title: "Disaggregated Prefill and Decoding Inference System for Large Language Model Serving on Multi-Vendor GPUs"
+  year: 2025
+  venue: "arXiv"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2509.17542"
+  code: null
+  tags: ["PD", "heterogeneous-GPU", "multi-vendor", "placement"]
+  why_it_matters: "Studies compatible KV transmission and joint parallelism/instance allocation across different GPU vendors."
+  limitation: "Vendor-specific transport compatibility and deployment assumptions must be checked for each device pair."
+  source: "https://arxiv.org/abs/2509.17542"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "smartgen"
+  title: "SmartGen: Seamless Disaggregated LLM Inference with Selective KV Cache Transfer"
+  year: 2026
+  venue: "arXiv"
+  category: "kv-cache"
+  status: "substrate"
+  arxiv: "2607.28150"
+  code: null
+  tags: ["PD", "KV-cache", "selective-transfer", "bandwidth"]
+  why_it_matters: "Overlaps proactive, on-demand, and speculative KV transfer to reduce the initial handoff barrier on limited networks."
+  limitation: "Selective availability and model accuracy require validation; transfer-engine gains do not determine end-to-end SLO goodput."
+  source: "https://arxiv.org/abs/2607.28150"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "netkv"
+  title: "NetKV: Network-Aware Decode Instance Selection for Disaggregated LLM Inference"
+  year: 2026
+  venue: "arXiv"
+  category: "kv-cache"
+  status: "theory"
+  arxiv: "2606.03910"
+  code: null
+  tags: ["PD", "network-aware-routing", "topology", "simulation"]
+  why_it_matters: "Adds network cost to decode-instance selection instead of using cache locality and compute load alone."
+  limitation: "Reported evaluation is simulation-based; congestion telemetry and production overhead need independent measurement."
+  source: "https://arxiv.org/abs/2606.03910"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "spectrumkv"
+  title: "SpectrumKV: Per-Token Mixed-Precision KV Cache Transfer for Prefill-Decode Disaggregated LLM Serving"
+  year: 2026
+  venue: "arXiv"
+  category: "kv-cache"
+  status: "adjacent"
+  arxiv: "2606.08635"
+  code: null
+  tags: ["PD", "KV-cache", "mixed-precision", "accuracy"]
+  why_it_matters: "Allocates per-token KV precision and probes model tolerance to reduce transfer payload while retaining important tokens."
+  limitation: "INT4 tolerance is model-dependent and lossy policies need quality evaluation alongside latency."
+  source: "https://arxiv.org/abs/2606.08635"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "lynx"
+  title: "Lynx: Progressive Speculative Quantization for accelerating KV Transfer in Long-Context Inference"
+  year: 2026
+  venue: "arXiv"
+  category: "kv-cache"
+  status: "substrate"
+  arxiv: "2607.01831"
+  code: null
+  tags: ["PD", "KV-cache", "progressive-transfer", "speculation"]
+  why_it_matters: "Starts decoding from an anchor bit stream and verifies speculative progress after residual precision arrives."
+  limitation: "Verification, rollback, and transfer overlap must be included when evaluating latency and output equivalence."
+  source: "https://arxiv.org/abs/2607.01831"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "epd-disaggregation"
+  title: "Efficiently Serving Large Multimodal Models Using EPD Disaggregation"
+  year: 2025
+  venue: "ICML"
+  category: "multimodal"
+  status: "adjacent"
+  arxiv: "2501.05460"
+  code: "https://github.com/vbdi/epdserve"
+  tags: ["EPD", "multimodal", "role-switching", "placement"]
+  why_it_matters: "Separates multimodal encode, prefill, and decode stages and studies allocation and changing workloads."
+  limitation: "Encode-stage memory, transfer payloads, and modality mix create additional constraints beyond text-only P/D."
+  source: "https://arxiv.org/abs/2501.05460"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "vllm-omni"
+  title: "vLLM-Omni: Fully Disaggregated Serving for Any-to-Any Multimodal Models"
+  year: 2026
+  venue: "arXiv"
+  category: "multimodal"
+  status: "substrate"
+  arxiv: "2602.02204"
+  code: "https://github.com/vllm-project/vllm-omni"
+  tags: ["multimodal", "stage-disaggregation", "runtime"]
+  why_it_matters: "Introduces a stage graph and connectors for independently serving autoregressive and diffusion components of any-to-any models."
+  limitation: "Stage-level job-completion gains are not directly comparable to text-only TTFT/TPOT or AFD results."
+  source: "https://arxiv.org/abs/2602.02204"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "epd-serve-ascend"
+  title: "EPD-Serve: A Flexible Multimodal EPD Disaggregation Inference Serving System On Ascend"
+  year: 2026
+  venue: "arXiv"
+  category: "multimodal"
+  status: "adjacent"
+  arxiv: "2601.11590"
+  code: null
+  tags: ["EPD", "multimodal", "Ascend", "communication"]
+  why_it_matters: "Combines stage orchestration, feature prefetching, and hierarchical KV transfer for multimodal serving on Ascend."
+  limitation: "Ascend topology and co-location behavior need revalidation on GPU-based serving stacks."
+  source: "https://arxiv.org/abs/2601.11590"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "easerve"
+  title: "EAServe: Encode-Aware Disaggregated Serving for Multimodal Large Language Models"
+  year: 2026
+  venue: "arXiv"
+  category: "multimodal"
+  status: "adjacent"
+  arxiv: "2609.31551"
+  code: null
+  tags: ["EPD", "multimodal", "micro-batching", "provisioning"]
+  why_it_matters: "Uses encode-aware admission, partial prefill offload, and resource search to balance an EPD pipeline."
+  limitation: "Results depend on modality mix, encode batching, and SM sharing; isolate these effects from the benefit of disaggregation."
+  source: "https://arxiv.org/abs/2609.31551"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "helix-parallelism"
+  title: "Helix Parallelism: Rethinking Sharding Strategies for Interactive Multi-Million-Token LLM Decoding"
+  year: 2025
+  venue: "arXiv"
+  category: "reaggregation"
+  status: "counter-baseline"
+  arxiv: "2507.07120"
+  code: "https://github.com/NVIDIA/TensorRT-LLM"
+  tags: ["KV-parallelism", "long-context", "MoE", "temporal-disaggregation"]
+  why_it_matters: "Reuses the same GPUs for KV-parallel attention and tensor/expert-parallel FFN, providing a temporal alternative to spatial AFD."
+  limitation: "Targets long-context interactive decode; distinguish temporal sharding changes from dedicated attention/FFN worker pools. The linked runtime contains an implementation; follow its version-specific feature guide."
+  source: "https://arxiv.org/abs/2507.07120"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "dynamo"
+  title: "NVIDIA Dynamo"
+  year: 2026
+  venue: "GitHub"
+  category: "serving-foundation"
+  status: "substrate"
+  arxiv: null
+  code: "https://github.com/ai-dynamo/dynamo"
+  tags: ["PD", "routing", "autoscaling", "NIXL"]
+  why_it_matters: "Distributed serving framework with separate prefill/decode workers, routing, and deployment tooling."
+  limitation: "Backend, connector, and deployment support are version-specific; this is a framework rather than a single paper."
+  source: "https://github.com/ai-dynamo/dynamo"
+  verified: "2026-10-13"
+  artifact_type: "framework"
+
+- id: "nixl"
+  title: "NVIDIA Inference Xfer Library (NIXL)"
+  year: 2026
+  venue: "GitHub"
+  category: "kv-cache"
+  status: "substrate"
+  arxiv: null
+  code: "https://github.com/ai-dynamo/nixl"
+  tags: ["KV-cache", "transfer", "UCX", "storage"]
+  why_it_matters: "Pluggable inference data-transfer layer used by disaggregated serving and storage integrations."
+  limitation: "Transport primitives do not implement a request scheduler, cache policy, or complete P/D service."
+  source: "https://github.com/ai-dynamo/nixl"
+  verified: "2026-10-13"
+  artifact_type: "library"
+
+- id: "llm-d"
+  title: "llm-d"
+  year: 2026
+  venue: "GitHub"
+  category: "serving-foundation"
+  status: "substrate"
+  arxiv: null
+  code: "https://github.com/llm-d/llm-d"
+  tags: ["PD", "Kubernetes", "routing", "expert-parallelism"]
+  why_it_matters: "Kubernetes-native inference stack with reproducible deployment paths for P/D, KV reuse, and expert parallelism."
+  limitation: "Requires compatible platform and backend components; an installation guide is not a portable performance guarantee."
+  source: "https://github.com/llm-d/llm-d"
+  verified: "2026-10-13"
+  artifact_type: "framework"
+
+- id: "tensorrt-llm"
+  title: "TensorRT-LLM"
+  year: 2026
+  venue: "GitHub"
+  category: "serving-foundation"
+  status: "substrate"
+  arxiv: null
+  code: "https://github.com/NVIDIA/TensorRT-LLM"
+  tags: ["PD", "runtime", "MoE", "Helix"]
+  why_it_matters: "NVIDIA runtime with disaggregated-serving and parallelism implementation guides, including Helix."
+  limitation: "Model, GPU, precision, and feature combinations must match the documented release."
+  source: "https://github.com/NVIDIA/TensorRT-LLM"
+  verified: "2026-10-13"
+  artifact_type: "framework"
+
+- id: "aiperf"
+  title: "AIPerf"
+  year: 2026
+  venue: "GitHub"
+  category: "evaluation"
+  status: "substrate"
+  arxiv: null
+  code: "https://github.com/ai-dynamo/aiperf"
+  tags: ["benchmarking", "trace-replay", "SLO"]
+  why_it_matters: "Client benchmarking toolkit with latency metrics, load control, and documented BurstGPT replay."
+  limitation: "Length-only trace replay synthesizes prompts and does not reproduce original semantic prefix reuse."
+  source: "https://github.com/ai-dynamo/aiperf"
+  verified: "2026-10-13"
+  artifact_type: "benchmark"
+
+- id: "kvdirect"
+  title: "KVDirect: Distributed Disaggregated LLM Inference"
+  year: 2024
+  venue: "arXiv"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2501.14743"
+  code: null
+  tags: ["dense", "PD"]
+  why_it_matters: "Decode workers pull prefill-owned KV blocks over rail-aligned RDMA; prefill frees after completion."
+  limitation: "Decode-initiated KV pulls optimize a specific RDMA data path; report rail topology, registration, and achieved transfer bandwidth. "
+  source: "https://arxiv.org/abs/2501.14743"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["KVDirect"]
+
+- id: "ome"
+  title: "OME: Revolutionizing LLM Infrastructure with Model-Driven Architecture"
+  year: 2025
+  venue: "Technical report / documentation"
+  category: "serving-foundation"
+  status: "substrate"
+  arxiv: null
+  code: "https://github.com/sgl-project/ome"
+  tags: ["PD"]
+  why_it_matters: "Documents engine (prefill), decoder and router components on Kubernetes; KV from engine to decoder."
+  limitation: "Kubernetes engine/decoder/router orchestration is not a standalone inference kernel implementation."
+  source: "https://www.lmsys.org/blog/2025-07-08-ome/"
+  verified: "2026-10-13"
+  artifact_type: "framework"
+  aliases: ["OME"]
+
+- id: "ray-serve-pd"
+  title: "Ray Serve: Prefill-decode disaggregation"
+  year: 2026
+  venue: "Technical report / documentation"
+  category: "serving-foundation"
+  status: "substrate"
+  arxiv: null
+  code: "https://github.com/ray-project/ray"
+  tags: ["PD"]
+  why_it_matters: "Documents prefill and decode deployments; prefill KV handed via connector metadata."
+  limitation: "Documented serving pattern with backend-specific KV connectors; pin Ray, engine, and connector versions together."
+  source: "https://docs.ray.io/en/latest/serve/llm/architecture/serving-patterns/prefill-decode.html"
+  verified: "2026-10-13"
+  artifact_type: "framework"
+  aliases: ["Ray Serve LLM PD disaggregation"]
+
+- id: "infera"
+  title: "Introducing AMD ROCm Infera: Scaling Goodput for Agentic AI with Distributed Inference Orchestration"
+  year: 2026
+  venue: "Technical report / documentation"
+  category: "serving-foundation"
+  status: "substrate"
+  arxiv: null
+  code: "https://github.com/AMD-AGI/Infera"
+  tags: ["MoE", "PD"]
+  why_it_matters: "Role-registered prefill and decode engines on MI355X; KV handed off by PD connector, host kvd tier."
+  limitation: "ROCm deployment/runtime compatibility and backend transport matter; vendor-reported improvements need matched hardware/workload checks."
+  source: "https://rocm.blogs.amd.com/software-tools-optimization/infera-di/README.html"
+  verified: "2026-10-13"
+  artifact_type: "framework"
+  aliases: ["AMD ROCm Infera"]
+
+- id: "laps"
+  title: "LAPS: A Length-Aware-Prefill LLM Serving System"
+  year: 2026
+  venue: "arXiv"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2601.11589"
+  code: null
+  tags: ["dense", "MoE", "PD"]
+  why_it_matters: "Prefill tier split by prompt-length class within SGLang PD; KV handoff inherited from SGLang."
+  limitation: "Current primary title is LAPS; prompt-length separation refines prefill scheduling rather than introducing an A/F operator cut."
+  source: "https://arxiv.org/abs/2601.11589"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["PLA-Serve", "LAPS"]
+
+- id: "alignedserve"
+  title: "AlignedServe: Orchestrating Prefix-aware Batching to Build a High-throughput and Computing-efficient LLM Serving System"
+  year: 2026
+  venue: "arXiv"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2605.23389"
+  code: null
+  tags: ["dense", "PD"]
+  why_it_matters: "Prefill offloads KV into a host-memory pool where requests await prefix-aligned decode batching."
+  limitation: "Prefix-aware batching and host KV pooling affect iteration bubbles; evaluate cache semantics and transfer cost together."
+  source: "https://arxiv.org/abs/2605.23389"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["AlignedServe"]
+
+- id: "dualpath"
+  title: "DualPath: Breaking the Storage Bandwidth Bottleneck in Agentic LLM Inference"
+  year: 2026
+  venue: "arXiv"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2602.21548"
+  code: null
+  tags: ["dense", "MoE", "multi-turn", "PD"]
+  why_it_matters: "Prefill and decode engines with hit-token KV read from 3FS storage via both sides' I/O paths."
+  limitation: "Storage I/O balancing is distinct from faster compute; report storage/NIC budget, cache-hit workload, and exposed data movement."
+  source: "https://arxiv.org/abs/2602.21548"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["DualPath"]
+
+- id: "semi-pd"
+  title: "semi-PD: Towards Efficient LLM Serving via Phase-Wise Disaggregated Computation and Unified Storage"
+  year: 2025
+  venue: "arXiv"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2504.19867"
+  code: null
+  tags: ["dense", "MoE", "PD"]
+  why_it_matters: "Prefill and decode compute partitioned on shared GPUs; unified KV storage shared by both roles."
+  limitation: "Unified storage avoids some copying but still needs explicit ownership, synchronization, access-path, and memory-capacity accounting."
+  source: "https://arxiv.org/abs/2504.19867"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["semi-PD"]
+
+- id: "rapid-serve"
+  title: "RAPID-Serve: Resource-efficient and Accelerated P/D Intra-GPU Disaggregation"
+  year: 2026
+  venue: "arXiv"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2601.11822"
+  code: null
+  tags: ["dense", "MoE", "PD"]
+  why_it_matters: "Prefill and decode processes share GPUs via CU masks; weights and paged KV shared through IPC."
+  limitation: "Intra-GPU spatial separation shares memory/weights; its resource and transfer costs differ from separate-node PD."
+  source: "https://arxiv.org/abs/2601.11822"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["RAPID-Serve"]
+
+- id: "heteroscale"
+  title: "Taming the Chaos: Coordinated Autoscaling for Heterogeneous and Disaggregated LLM Inference"
+  year: 2025
+  venue: "arXiv"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2508.19559"
+  code: null
+  tags: ["elasticity", "heterogeneous-GPU", "PD"]
+  why_it_matters: "Prefill and decode on heterogeneous GPU pools with coordinated autoscaling; PD state crosses between pools."
+  limitation: "Coordinated autoscaling mixes phase ratio, heterogeneous placement, and topology; measure each mechanism and adaptation delay."
+  source: "https://arxiv.org/abs/2508.19559"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["HeteroScale"]
+
+- id: "hexgen-2"
+  title: "HexGen-2: Disaggregated Generative Inference of LLMs in Heterogeneous Environment"
+  year: 2025
+  venue: "ICLR"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2502.07903"
+  code: null
+  tags: ["heterogeneous-GPU", "dense", "PD"]
+  why_it_matters: "Prefill and decode placed on heterogeneous GPUs by graph partition and max-flow; KV routed over mixed links."
+  limitation: "Heterogeneous PD depends on achieved KV-transfer bandwidth and scheduling; a hardware mix alone is not a fair cost comparison."
+  source: "https://arxiv.org/abs/2502.07903"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["HexGen-2"]
+
+- id: "thunderserve"
+  title: "ThunderServe: High-performance and Cost-efficient LLM Serving in Cloud Environments"
+  year: 2025
+  venue: "MLSys"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2502.09334"
+  code: null
+  tags: ["heterogeneous-GPU", "dense", "PD"]
+  why_it_matters: "Heterogeneous cloud GPU groups designated prefill or decode; 4-bit KV queued for decode retrieval."
+  limitation: "Cloud/network heterogeneity and planning matter; inspect phase placement and billing alongside serving goodput."
+  source: "https://arxiv.org/abs/2502.09334"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["ThunderServe"]
+
+- id: "prfaas"
+  title: "Prefill-as-a-Service: KVCache of Next-Generation Models Could Go Cross-Datacenter"
+  year: 2026
+  venue: "arXiv"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2604.15039"
+  code: null
+  tags: ["heterogeneous-GPU", "PD"]
+  why_it_matters: "Compute-dense prefill clusters serve remote PD clusters; hybrid-model KV crosses datacenters."
+  limitation: "Cross-datacenter viability is tied to smaller hybrid-model state; traditional dense KV payloads need their own crossover analysis."
+  source: "https://arxiv.org/abs/2604.15039"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["PrfaaS"]
+
+- id: "tokenscale"
+  title: "TokenScale: Timely and Accurate Autoscaling for Disaggregated LLM Serving with Token Velocity"
+  year: 2025
+  venue: "arXiv"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2512.03416"
+  code: null
+  tags: ["elasticity", "dense", "PD"]
+  why_it_matters: "Token-velocity autoscaling of prefill and decode pools; convertible decoders absorb bursts locally."
+  limitation: "Token-velocity signals need workload-shift and burst validation; predictive scaling does not remove worker startup/reconfiguration cost."
+  source: "https://arxiv.org/abs/2512.03416"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["TokenScale"]
+
+- id: "dualscale"
+  title: "DualScale: Energy-Efficient Disaggregated LLM Serving via Phase-Aware Placement and DVFS"
+  year: 2026
+  venue: "arXiv"
+  category: "hardware-energy"
+  status: "adjacent"
+  arxiv: "2602.18755"
+  code: null
+  tags: ["energy", "dense", "PD"]
+  why_it_matters: "Phase-aware placement and DVFS for prefill and decode pools; request KV retrieved by decode."
+  limitation: "Formerly BiScale; phase-aware placement and DVFS are coupled, so isolate allocation changes from frequency savings."
+  source: "https://arxiv.org/abs/2602.18755"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["DualScale", "BiScale"]
+
+- id: "xdeepserve"
+  title: "Huawei Cloud Model-as-a-Service on the CloudMatrix384 SuperPod"
+  year: 2025
+  venue: "arXiv"
+  category: "composite"
+  status: "adjacent"
+  arxiv: "2508.02520"
+  code: null
+  tags: ["production", "MoE", "AFD"]
+  why_it_matters: "Production PD with attention-FFN disaggregated decode on CloudMatrix384; KV and activations cross."
+  limitation: "First-party CloudMatrix384 deployment report; vendor fabric/shared-memory assumptions need separate validation on other platforms."
+  source: "https://arxiv.org/abs/2508.02520"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["xDeepServe"]
+
+- id: "rtp-llm"
+  title: "RTP-LLM: High-Performance Alibaba LLM Inference Engine"
+  year: 2026
+  venue: "arXiv"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2605.29639"
+  code: null
+  tags: ["production", "dense", "MoE", "PD"]
+  why_it_matters: "Production prefill and decode nodes with tiered prefix cache; KV sent prefill to decode."
+  limitation: "Production engine/report scope is broader than PD; pin the release and isolate phase, cache, and communication optimizations."
+  source: "https://arxiv.org/abs/2605.29639"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["RTP-LLM"]
+
+- id: "aibrix"
+  title: "Prefill-Decode Disaggregation (PD)"
+  year: 2026
+  venue: "Technical report / documentation"
+  category: "serving-foundation"
+  status: "substrate"
+  arxiv: null
+  code: "https://github.com/vllm-project/aibrix"
+  tags: ["PD"]
+  why_it_matters: "Documents gateway routing by prompt length to combined or PD rolesets; KV crosses via engine connectors."
+  limitation: "Gateway routing and worker transfer are separate layers; use current supported engine contracts, not the relocated historical documentation URL."
+  source: "https://aibrix.readthedocs.io/latest/features/gateway-routing/pd-disaggregation.html"
+  verified: "2026-10-13"
+  artifact_type: "framework"
+  aliases: ["AIBrix PD disaggregation"]
+
+- id: "ampd"
+  title: "Efficient Multi-round LLM Inference over Disaggregated Serving"
+  year: 2026
+  venue: "arXiv"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2602.14516"
+  code: null
+  tags: ["dense", "MoE", "multi-turn", "PD"]
+  why_it_matters: "Multi-round prefills run locally on the bound decode worker or remotely; KV crosses only for remote prefill."
+  limitation: "Multi-round incremental prefill differs from stateless request replay; preserve turn dependencies and retained KV in evaluation."
+  source: "https://arxiv.org/abs/2602.14516"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["AMPD"]
+
+- id: "crossflow"
+  title: "Crossflow: Prefill-Decode Elasticity for Agentic LLM Serving"
+  year: 2026
+  venue: "arXiv"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2609.27085"
+  code: null
+  tags: ["MoE", "PD"]
+  why_it_matters: "Fixed P/D pools; selected prefills spill to the decode home, otherwise KV crosses via NIXL."
+  limitation: "Uses revocable decode-side slack leases without changing worker roles; distinguish fast borrowing from sustained role reassignment."
+  source: "https://arxiv.org/abs/2609.27085"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["Crossflow"]
+
+- id: "pearl"
+  title: "PEARL: Adaptive Prefill-Decode Execution with Elasticity for Agentic Reinforcement Learning"
+  year: 2026
+  venue: "arXiv"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2609.35158"
+  code: null
+  tags: ["elasticity", "dense", "MoE", "PD"]
+  why_it_matters: "RL rollout workers switch between all-colocated and all-disaggregated modes on elastic events; KV crosses when split."
+  limitation: "Agentic RL rollout and borrowed training GPUs are the evaluation context; batch/job throughput is not online-serving joint-SLO goodput."
+  source: "https://arxiv.org/abs/2609.35158"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["PEARL"]
+
+- id: "tropical"
+  title: "Tropical: Enhancing SLO Attainment in Disaggregated LLM Serving via SLO-Aware Multiplexing"
+  year: 2025
+  venue: "DAC"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2606.16264"
+  code: null
+  tags: ["dense", "PD"]
+  why_it_matters: "Decode-side capacity multiplexes selected prefills; KV stays local or crosses the PD boundary per policy."
+  limitation: "Archival DAC 2025 citation and later arXiv posting coexist; compare SLO-aware multiplexing with tuned static PD and chunked prefill."
+  source: "https://doi.org/10.1109/DAC63849.2025.11132617"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["Tropical"]
+  related_sources: ["https://arxiv.org/abs/2606.16264"]
+
+- id: "crosspool"
+  title: "CrossPool: Efficient Multi-LLM Serving for Cold MoE Models through KV-Cache and Weight Disaggregation"
+  year: 2026
+  venue: "arXiv"
+  category: "afd"
+  status: "adjacent"
+  arxiv: "2606.24506"
+  code: null
+  tags: ["MoE", "AFD"]
+  why_it_matters: "Attention, non-FFN layers and shared KV in one GPU pool, FFN weights of many models in another; activations cross."
+  limitation: "Cold multi-model MoE workloads and memory pooling differ from high-load single-model AFD; report model popularity and cache lifetime."
+  source: "https://arxiv.org/abs/2606.24506"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["CrossPool"]
+  operator_subtype: "full-attention"
+
+- id: "fastafd"
+  title: "FastAFD: Open-Source Large-Scale Attention-FFN Disaggregation on Blackwell NVL72"
+  year: 2026
+  venue: "Technical report / documentation"
+  category: "afd"
+  status: "substrate"
+  arxiv: null
+  code: "https://github.com/hao-ai-lab/FastAFD"
+  tags: ["MoE", "AFD"]
+  why_it_matters: "Disjoint attention and FFN GPU pools in one NVL72 domain; per-layer activations cross attention to FFN."
+  limitation: "Serving prototype: measured steady-state decode after prefill, not online joint-SLO goodput; future heterogeneous-platform numbers are projections."
+  source: "https://haoailab.com/blogs/fastafd/"
+  verified: "2026-10-13"
+  artifact_type: "framework"
+  aliases: ["FastAFD"]
+  operator_subtype: "full-attention"
+
+- id: "amoe"
+  title: "Toward Cost-Efficient Serving of Mixture-of-Experts with Asynchrony"
+  year: 2025
+  venue: "arXiv"
+  category: "afd"
+  status: "adjacent"
+  arxiv: "2505.08944"
+  code: null
+  tags: ["MoE", "AFD"]
+  why_it_matters: "Attention on data-parallel GPUs, experts on separate EP GPUs; asynchronous per-layer activation exchange and scheduling."
+  limitation: "Asynchrony and re-batching are the mechanism; verify independent pools and interface semantics before treating it as strict spatial AFD."
+  source: "https://arxiv.org/abs/2505.08944"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["AMoE"]
+  operator_subtype: "full-attention"
+
+- id: "afore"
+  title: "AFORE: Attention-FFN Disaggregation with Overlapped Reconfiguration of Experts"
+  year: 2026
+  venue: "arXiv"
+  category: "afd"
+  status: "adjacent"
+  arxiv: "2610.03203"
+  code: null
+  tags: ["MoE", "AFD"]
+  why_it_matters: "Attention/routing and FFN/expert pools with overlapped expert reconfiguration; activations cross per layer and microbatch."
+  limitation: "Expert migration overlap depends on the pipeline window, upcoming routing demand, and GPU transport; evaluate skew and migration costs separately."
+  source: "https://arxiv.org/abs/2610.03203"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["AFORE"]
+  operator_subtype: "full-attention"
+
+- id: "opscale"
+  title: "OpScale: Operator-level Provisioning and Autoscaling for LLM Serving"
+  year: 2026
+  venue: "arXiv"
+  category: "afd"
+  status: "adjacent"
+  arxiv: "2608.13499"
+  code: null
+  tags: ["elasticity", "dense", "MoE", "AFD"]
+  why_it_matters: "Per-operator replica pools provisioned and autoscaled; activations forwarded between operator stages."
+  limitation: "Operator-level autoscaling requires allocation/placement/resharding accounting; a finer cut is not automatically profitable in every workload."
+  source: "https://arxiv.org/abs/2608.13499"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["OpScale"]
+  operator_subtype: "full-attention"
+
+- id: "opweave"
+  title: "OpWeave: Flexible Operator Disaggregation for Heterogeneous LLM Serving"
+  year: 2026
+  venue: "arXiv"
+  category: "afd"
+  status: "adjacent"
+  arxiv: "2609.14237"
+  code: null
+  tags: ["heterogeneous-GPU", "dense", "MoE", "AFD"]
+  why_it_matters: "Planner-chosen operator partitions on heterogeneous device groups; hidden states cross stage boundaries."
+  limitation: "Planner-selected boundaries and hardware matching need comparison to independently tuned colocated and fixed-AFD plans."
+  source: "https://arxiv.org/abs/2609.14237"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["OpWeave"]
+  operator_subtype: "full-attention"
+
+- id: "fastdecode"
+  title: "FastDecode: High-Throughput GPU-Efficient LLM Serving using Heterogeneous Pipelines"
+  year: 2024
+  venue: "arXiv"
+  category: "afd"
+  status: "adjacent"
+  arxiv: "2403.11421"
+  code: null
+  tags: ["heterogeneous-GPU", "dense", "AFD"]
+  why_it_matters: "Decode attention and KV on remote CPU R-workers, other layers on GPU; Q/K/V and outputs cross per layer."
+  limitation: "CPU/GPU attention splitting is sensitive to CPU service rate and communication; report the full heterogeneous pipeline budget."
+  source: "https://arxiv.org/abs/2403.11421"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["FastDecode"]
+  operator_subtype: "core-attention"
+
+- id: "lamina"
+  title: "Efficient Heterogeneous Large Language Model Decoding with Model-Attention Disaggregation"
+  year: 2024
+  venue: "arXiv"
+  category: "afd"
+  status: "adjacent"
+  arxiv: "2405.01814"
+  code: null
+  tags: ["heterogeneous-GPU", "dense", "AFD"]
+  why_it_matters: "Decode attention and KV on memory-optimized GPUs, other layers on compute GPUs; Q/K/V and outputs cross."
+  limitation: "Core attention/KV is separated from the projection/FFN weight path; do not apply full-attention activation-size assumptions."
+  source: "https://arxiv.org/abs/2405.01814"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["Lamina"]
+  operator_subtype: "core-attention"
+
+- id: "aide"
+  title: "AiDE: Attention-FFN Disaggregated Execution for Cost-Effective LLM Decoding on CXL-PNM"
+  year: 2025
+  venue: "IEEE Computer Architecture Letters"
+  category: "hardware-energy"
+  status: "adjacent"
+  arxiv: null
+  code: null
+  tags: ["dense", "AFD"]
+  why_it_matters: "Decode attention and KV on CXL-PNM devices, projections and FFN on GPUs; Q/K/V and outputs cross per layer."
+  limitation: "CXL-PNM offload has hardware-specific memory and interface constraints; compare the actual projection/core-attention split."
+  source: "https://doi.org/10.1109/LCA.2025.3597323"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["AiDE"]
+  operator_subtype: "core-attention"
+
+- id: "chime"
+  title: "CHIME: A Case for Efficient Long-Context Attention-FC Disaggregated Inference with DIMM-PIM"
+  year: 2025
+  venue: "arXiv"
+  category: "hardware-energy"
+  status: "adjacent"
+  arxiv: "2504.17584"
+  code: null
+  tags: ["dense", "AFD"]
+  why_it_matters: "Decode attention and KV on DIMM-PIM, FC layers on GPUs; Q/K/V and attention outputs cross per layer."
+  limitation: "DIMM-PIM assumptions and roofline predictions differ from a conventional GPU deployment; current CHIME and earlier L3 are one version family."
+  source: "https://arxiv.org/abs/2504.17584"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["CHIME (arXiv v1: L3)", "CHIME", "L3"]
+  operator_subtype: "core-attention"
+
+- id: "glinthawk"
+  title: "Glinthawk: A Two-Tiered Architecture for Offline LLM Inference"
+  year: 2025
+  venue: "arXiv"
+  category: "afd"
+  status: "adjacent"
+  arxiv: "2501.11779"
+  code: "https://github.com/microsoft/glinthawk"
+  tags: ["heterogeneous-GPU", "dense", "AFD"]
+  why_it_matters: "Non-attention layers on high-end tier, attention and KV on lower-end tier; activations cross per layer."
+  limitation: "Offline inference throughput is not equivalent to interactive TTFT/TPOT goodput; its two-tier attention offload has a distinct boundary."
+  source: "https://arxiv.org/abs/2501.11779"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["Glinthawk"]
+  operator_subtype: "core-attention"
+
+- id: "hetis"
+  title: "Hetis: Serving LLMs in Heterogeneous GPU Clusters with Fine-grained and Dynamic Parallelism"
+  year: 2025
+  venue: "arXiv"
+  category: "afd"
+  status: "adjacent"
+  arxiv: "2509.08309"
+  code: null
+  tags: ["heterogeneous-GPU", "dense", "AFD"]
+  why_it_matters: "Lower-end GPUs compute offloaded decode attention heads; head-partitioned KV with per-layer activation exchange."
+  limitation: "Head placement and heterogeneous parallelism require bandwidth/memory accounting beyond the count of GPUs."
+  source: "https://arxiv.org/abs/2509.08309"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["Hetis"]
+  operator_subtype: "core-attention"
+
+- id: "hpu"
+  title: "HPU: High-Bandwidth Processing Unit for Scalable, Cost-effective LLM Inference via GPU Co-processing"
+  year: 2025
+  venue: "arXiv"
+  category: "hardware-energy"
+  status: "adjacent"
+  arxiv: "2504.16112"
+  code: null
+  tags: ["dense", "AFD"]
+  why_it_matters: "Generation-stage attention and KV on HPU cards, linear layers on GPU; vectors cross per layer."
+  limitation: "Specialized co-processor evaluation does not establish drop-in performance on commodity GPU clusters."
+  source: "https://arxiv.org/abs/2504.16112"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["HPU"]
+  operator_subtype: "core-attention"
+
+- id: "weaver"
+  title: "Weaver: Efficient Multi-LLM Serving with Attention Offloading"
+  year: 2025
+  venue: "USENIX ATC"
+  category: "afd"
+  status: "adjacent"
+  arxiv: null
+  code: null
+  tags: ["dense", "AFD"]
+  why_it_matters: "Attention of a hot model offloaded to colocated instances of other models; KV placed at prefill completion."
+  limitation: "Attention borrowing among models changes co-tenant scheduling and cache placement; compare against matched multi-model workloads."
+  source: "https://www.usenix.org/conference/atc25/presentation/gao"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["Weaver"]
+  operator_subtype: "borrowed-attention"
+
+- id: "karat"
+  title: "Heterogeneous LLM Serving with General-Purpose Processing-Near-Memory for Retrieval-Based Sparse Attention"
+  year: 2026
+  venue: "arXiv"
+  category: "hardware-energy"
+  status: "adjacent"
+  arxiv: "2608.03555"
+  code: null
+  tags: ["heterogeneous-GPU", "dense", "MoE", "multi-turn", "AFD"]
+  why_it_matters: "Decode attention over KV on PNM devices beside GPU nodes; queries and partial results cross per layer."
+  limitation: "Retrieval-based sparse attention and a PNM hardware tier alter both the workload and the boundary; avoid transferring dense-attention results."
+  source: "https://arxiv.org/abs/2608.03555"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["KARAT"]
+  operator_subtype: "core-attention"
+
+- id: "kernelflume"
+  title: "KernelFlume: Elastic Core-Attention Scaling for Agentic Long-Context Decoding"
+  year: 2026
+  venue: "arXiv"
+  category: "afd"
+  status: "adjacent"
+  arxiv: "2606.29207"
+  code: null
+  tags: ["elasticity", "dense", "AFD"]
+  why_it_matters: "Core attention over KV on elastic weightless attention nodes; per-step queries and partial outputs cross."
+  limitation: "Separates core attention from projections/FFN; larger-model and cheaper-hardware results include simulation, not only the live 8B testbeds."
+  source: "https://arxiv.org/abs/2606.29207"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["KernelFlume"]
+  operator_subtype: "core-attention"
+
+- id: "nelssa"
+  title: "NELSSA: A GPU-PNM Heterogeneous System for Mixed-Length LLM Serving via Length-based Request Placement"
+  year: 2026
+  venue: "arXiv"
+  category: "hardware-energy"
+  status: "adjacent"
+  arxiv: "2607.26633"
+  code: null
+  tags: ["heterogeneous-GPU", "dense", "AFD"]
+  why_it_matters: "Long-request clustered KV and sparse attention on PNM node beside decode GPUs; centroids and partials cross."
+  limitation: "Mixed-length placement on PNM hardware must be evaluated alongside attention quality and real interface bandwidth."
+  source: "https://arxiv.org/abs/2607.26633"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["NELSSA"]
+  operator_subtype: "core-attention"
+
+- id: "omniserve"
+  title: "Serving Hybrid LLM Loads with SLO Guarantees Using CPU-GPU Attention Piggybacking"
+  year: 2026
+  venue: "arXiv"
+  category: "afd"
+  status: "adjacent"
+  arxiv: "2603.12831"
+  code: null
+  tags: ["dense", "AFD"]
+  why_it_matters: "Best-effort decode attention piggybacked onto host and remote CPUs; KV swapped to CPU memory."
+  limitation: "Borrowed CPU attention for best-effort work must preserve the latency-sensitive co-tenant SLO; record CPU/network use."
+  source: "https://arxiv.org/abs/2603.12831"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["OmniServe"]
+  operator_subtype: "borrowed-attention"
+
+- id: "expert-as-a-service"
+  title: "Expert-as-a-Service: Towards Efficient, Scalable, and Robust Large-scale MoE Serving"
+  year: 2025
+  venue: "arXiv"
+  category: "afd"
+  status: "adjacent"
+  arxiv: "2509.17863"
+  code: null
+  tags: ["MoE", "AFD"]
+  why_it_matters: "Experts run as an independently scaled service; token activations cross to experts and back per layer."
+  limitation: "A remote expert service is a narrower boundary than a full dense attention/FFN split; include dispatch/combine and failure semantics."
+  source: "https://arxiv.org/abs/2509.17863"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["Expert-as-a-Service"]
+  operator_subtype: "expert-service"
+
+- id: "remoe"
+  title: "Remoe: Towards Efficient and Low-Cost MoE Inference in Serverless Computing"
+  year: 2025
+  venue: "arXiv"
+  category: "afd"
+  status: "adjacent"
+  arxiv: "2512.18674"
+  code: null
+  tags: ["MoE", "AFD"]
+  why_it_matters: "Non-expert layers in a main serverless function, remote experts in separate functions; hidden states cross."
+  limitation: "Serverless function placement and parameter caching dominate a different cost model from always-on GPU AFD."
+  source: "https://arxiv.org/abs/2512.18674"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["Remoe"]
+  operator_subtype: "expert-service"
+
+- id: "faasmoe"
+  title: "FaaSMoE: A Serverless Framework for Multi-Tenant Mixture-of-Experts Serving"
+  year: 2026
+  venue: "arXiv"
+  category: "afd"
+  status: "adjacent"
+  arxiv: "2604.26881"
+  code: null
+  tags: ["MoE", "AFD"]
+  why_it_matters: "Expert blocks served as serverless functions for many tenants; token batches cross to experts and back."
+  limitation: "Multi-tenant serverless experts require cold-start, parameter residency, and request isolation accounting."
+  source: "https://arxiv.org/abs/2604.26881"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["FaaSMoE"]
+  operator_subtype: "expert-service"
+
+- id: "tarragon"
+  title: "Making MoE-based LLM Inference Resilient with Tarragon"
+  year: 2026
+  venue: "arXiv"
+  category: "afd"
+  status: "adjacent"
+  arxiv: "2601.01310"
+  code: null
+  tags: ["MoE", "fault-tolerance", "AFD"]
+  why_it_matters: "Attention and expert workers separated with KV checkpointing; failures recovered on either side."
+  limitation: "Recovery independence is a separate property from structural AFD; include checkpoint/replica cost and failure-free performance."
+  source: "https://arxiv.org/abs/2601.01310"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["Tarragon"]
+  operator_subtype: "full-attention"
+
+- id: "asap"
+  title: "ASAP: A Disaggregated and Asynchronous Inference System for MoE Prefill"
+  year: 2026
+  venue: "arXiv"
+  category: "afd"
+  status: "adjacent"
+  arxiv: "2606.22541"
+  code: null
+  tags: ["prefill_op", "MoE", "AFD"]
+  why_it_matters: "Prefill-phase attention and MoE on disjoint NPU pools; hidden states and expert outputs cross per layer."
+  limitation: "Targets asynchronous MoE prefill on NPUs; TTFT evidence must not be presented as decode TPOT or GPU AFD evidence."
+  source: "https://arxiv.org/abs/2606.22541"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["ASAP"]
+  operator_subtype: "full-attention"
+
+- id: "vllm-afd-plugin"
+  title: "Announcing vLLM AFD Plugin: Disaggregating Attention and FFN for Flexible MoE Serving"
+  year: 2026
+  venue: "Technical report / documentation"
+  category: "afd"
+  status: "substrate"
+  arxiv: null
+  code: "https://github.com/vllm-project/afd-plugin"
+  tags: ["prefill_op", "MoE", "AFD"]
+  why_it_matters: "Attention and FFN services on disjoint Ascend dies; per-layer activations cross split layers."
+  limitation: "Experimental plugin with version- and connector-specific recipes; controlled forced-balancing benchmarks can alter outputs and do not establish production accuracy."
+  source: "https://vllm.ai/blog/2026-07-23-vllm-afd-plugin"
+  verified: "2026-10-13"
+  artifact_type: "framework"
+  aliases: ["vLLM AFD Plugin"]
+  operator_subtype: "full-attention"
+
+- id: "aflex"
+  title: "Energy-Efficient LLM Serving via Disaggregated Attention--FFN and Flexible Frequency Scaling"
+  year: 2026
+  venue: "arXiv"
+  category: "composite"
+  status: "adjacent"
+  arxiv: "2608.01891"
+  code: null
+  tags: ["elasticity", "energy", "prefill_op", "dense", "MoE", "AFD"]
+  why_it_matters: "Four pools (prefill/decode x attention/FFN) with per-pool frequency; hidden states cross A/F, KV crosses P to D."
+  limitation: "GPU-only energy on A800/Qwen3/Mixtral and P90 latency; gains combine provisioning, TP layout, pipelines, and DVFS, so isolate their contributions."
+  source: "https://arxiv.org/abs/2608.01891"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["AFlex"]
+
+- id: "expertplex"
+  title: "ExpertPlex: A High-Goodput Disaggregated Serving System for MoE LLMs with Adaptive Persistent Kernels"
+  year: 2026
+  venue: "arXiv"
+  category: "composite"
+  status: "adjacent"
+  arxiv: "2607.18002"
+  code: null
+  tags: ["prefill_op", "MoE", "AFD"]
+  why_it_matters: "Prefill-attention and decode-attention servers share MoE servers; routed activations cross via persistent-kernel buffers."
+  limitation: "Shares expert computation across prefill/decode while splitting attention; persistent-kernel isolation and weight-sharing gains should be ablated."
+  source: "https://arxiv.org/abs/2607.18002"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["ExpertPlex"]
+
+- id: "hexgen-3"
+  title: "HexGen-3: A Fully Disaggregated LLM Serving Framework with Fine-Grained Heterogeneous Resource Autoscaling"
+  year: 2026
+  venue: "ICML"
+  category: "composite"
+  status: "adjacent"
+  arxiv: null
+  code: null
+  tags: ["elasticity", "heterogeneous-GPU", "MoE", "AFD"]
+  why_it_matters: "Separate prefill, attention and FFN pools on heterogeneous GPUs; KV crosses P to A, activations cross A to F."
+  limitation: "Composite phase/operator provisioning adds multiple handoffs; verify each state contract and include reconfiguration overhead."
+  source: "https://proceedings.mlr.press/v306/jiang26z.html"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["HexGen-3"]
+
+- id: "elasticmm"
+  title: "ElasticMM: Efficient Multimodal LLMs Serving with Elastic Multimodal Parallelism"
+  year: 2025
+  venue: "arXiv"
+  category: "multimodal"
+  status: "adjacent"
+  arxiv: "2507.10069"
+  code: null
+  tags: ["elasticity", "dense", "EPD"]
+  why_it_matters: "Encode, prefill and decode stages per modality group with elastic instances; vision tokens and KV cross stages."
+  limitation: "Modality groups, encoder throughput, and stage-specific parallelism add dimensions beyond text-only PD."
+  source: "https://arxiv.org/abs/2507.10069"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["ElasticMM"]
+
+- id: "nova"
+  title: "Nova: Real-Time Agentic Vision-Language Model Serving with Adaptive Cross-Stage Parallelization"
+  year: 2025
+  venue: "arXiv"
+  category: "multimodal"
+  status: "adjacent"
+  arxiv: "2509.21301"
+  code: null
+  tags: ["dense", "EPD"]
+  why_it_matters: "Vision encode, prefill and decode workers on SM partitions of one GPU; requests cross via queues."
+  limitation: "Single-GPU SM partitioning is a logical stage separation with shared-device contention, not an inter-node EPD deployment."
+  source: "https://arxiv.org/abs/2509.21301"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["Nova"]
+
+- id: "triinfer"
+  title: "TriInfer: Hybrid EPD Disaggregation for Efficient Multimodal Large Language Model Inference"
+  year: 2026
+  venue: "MLSys"
+  category: "multimodal"
+  status: "adjacent"
+  arxiv: null
+  code: null
+  tags: ["dense", "EPD"]
+  why_it_matters: "Hybrid E, P, D and combined instances; image cache crosses E to P, KV crosses P to D."
+  limitation: "Use the MLSys 2026 canonical version; hybrid multimodal stage allocation and P90 SLOs differ from text-only throughput comparisons."
+  source: "https://proceedings.mlsys.org/paper_files/paper/2026/hash/f068c65585985c25c17f221390774ec7-Abstract-Conference.html"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["TriInfer (HydraInfer)"]
+
+- id: "unifiedserve"
+  title: "Enabling Disaggregated Multi-Stage MLLM Inference via GPU-Internal Scheduling and Resource Sharing"
+  year: 2025
+  venue: "arXiv"
+  category: "multimodal"
+  status: "adjacent"
+  arxiv: "2512.17574"
+  code: null
+  tags: ["dense", "EPD"]
+  why_it_matters: "Preprocess, encode+prefill and decode workers share GPUs; embeddings and KV read in place via IPC."
+  limitation: "GPU-internal sharing uses in-place state access; measure preprocessing and encode cost rather than treating all TTFT as prefill."
+  source: "https://arxiv.org/abs/2512.17574"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["UnifiedServe"]
+
+- id: "powerslider"
+  title: "PowerSlider: Exploiting Phase Asymmetry for LLM Serving under Demand Response"
+  year: 2026
+  venue: "arXiv"
+  category: "hardware-energy"
+  status: "adjacent"
+  arxiv: "2608.21719"
+  code: null
+  tags: ["elasticity", "energy", "dense", "PD"]
+  why_it_matters: "Prefill, think and answer stage pools with per-pool frequency; KV crosses between stage pools."
+  limitation: "Demand-response power caps are an instantaneous constraint; disclose priority policy, quality, tail latency, and energy measurement scope."
+  source: "https://arxiv.org/abs/2608.21719"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["PowerSlider"]
+
+- id: "ppd"
+  title: "Not All Prefills Are Equal: PPD Disaggregation for Multi-turn LLM Serving"
+  year: 2026
+  venue: "arXiv"
+  category: "pd-disaggregation"
+  status: "adjacent"
+  arxiv: "2603.13358"
+  code: null
+  tags: ["dense", "MoE", "multi-turn", "PD"]
+  why_it_matters: "Multi-turn append-prefills run on prefill-capable decode, full prefills on P; KV crosses one way."
+  limitation: "Append-prefill locality helps multi-turn requests; retain actual prefix reuse and compare TTFT against decode interference."
+  source: "https://arxiv.org/abs/2603.13358"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["PPD"]
+
+- id: "bestserve"
+  title: "BestServe: Serving Strategies with Optimal Goodput in Collocation and Disaggregation Architectures"
+  year: 2025
+  venue: "arXiv"
+  category: "evaluation"
+  status: "theory"
+  arxiv: "2506.05871"
+  code: null
+  tags: ["dense", "evaluation"]
+  why_it_matters: "Analytical optimizer ranks collocated versus disaggregated configurations; KV handoff modelled."
+  limitation: "Simulator/roofline ranking requires held-out live-system accuracy; an optimal modeled plan need not be optimal on a new runtime."
+  source: "https://arxiv.org/abs/2506.05871"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["BestServe"]
+
+- id: "mist"
+  title: "MIST: A Co-Design Framework for Heterogeneous, Multi-Stage LLM Inference"
+  year: 2025
+  venue: "arXiv"
+  category: "hardware-energy"
+  status: "theory"
+  arxiv: "2504.09775"
+  code: null
+  tags: ["heterogeneous-GPU", "dense", "evaluation"]
+  why_it_matters: "Simulated co-design of hardware, parallelism and chunked versus disaggregated batching; KV transfer modelled."
+  limitation: "Co-design/simulation assumptions about hardware and stages require calibration; distinguish modeled crossover from measured end-to-end wins."
+  source: "https://arxiv.org/abs/2504.09775"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["MIST"]
+
+- id: "aiconfigurator"
+  title: "AIConfigurator: Lightning-Fast Configuration Optimization for Multi-Framework LLM Serving"
+  year: 2026
+  venue: "arXiv"
+  category: "evaluation"
+  status: "theory"
+  arxiv: "2601.06288"
+  code: null
+  tags: ["dense", "MoE", "evaluation"]
+  why_it_matters: "Offline search over aggregated and xPyD configurations with modelled per-phase latency; KV transfer folded into TTFT."
+  limitation: "Configuration optimizer, not a serving runtime; freeze profiles/version compatibility and validate the returned plan on target hardware."
+  source: "https://arxiv.org/abs/2601.06288"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["AIConfigurator"]
+
+- id: "sara"
+  title: "SARA: SLO-Aware Resource Allocation for Disaggregated Agentic LLM Services"
+  year: 2026
+  venue: "arXiv"
+  category: "evaluation"
+  status: "theory"
+  arxiv: "2609.26763"
+  code: null
+  tags: ["dense", "evaluation"]
+  why_it_matters: "Analytical SLO-aware sizing of prefill and decode pools; KV transfer modelled."
+  limitation: "Analytical allocation depends on workload/queueing assumptions and state costs; validate against target-system tail SLOs."
+  source: "https://arxiv.org/abs/2609.26763"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["SARA"]
+
+- id: "dops"
+  title: "Beyond Prefill-Decode Disaggregation: Dissecting LLM Inference for Heterogeneous Platforms via Dynamic Operator Scheduling"
+  year: 2026
+  venue: "arXiv"
+  category: "evaluation"
+  status: "theory"
+  arxiv: "2607.25498"
+  code: "https://github.com/YIAI-02/TriForm"
+  tags: ["heterogeneous-GPU", "dense", "MoE", "evaluation"]
+  why_it_matters: "Compares PD, AF and per-operator placements over NPU plus PIM sharing host memory."
+  limitation: "Hardware-specific NPU/PIM scheduling and weight layout change multiple factors; compare cuts at matched layouts and budgets."
+  source: "https://arxiv.org/abs/2607.25498"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["DOPS (Bifocal)"]
+
+- id: "eco"
+  title: "ECO: Energy-Oriented Configuration Optimization for Attention FFN Disaggregated LLM Serving"
+  year: 2026
+  venue: "arXiv"
+  category: "hardware-energy"
+  status: "theory"
+  arxiv: "2610.08373"
+  code: null
+  tags: ["energy", "MoE", "evaluation"]
+  why_it_matters: "Energy-oriented search over attention and FFN group sizes and settings; dispatch/combine data cross per layer."
+  limitation: "Budgeted configuration search rather than an online autoscaler; compare search cost, frozen feasible outcomes, and measurement/quality boundaries."
+  source: "https://arxiv.org/abs/2610.08373"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["ECO"]
+
+- id: "tessera"
+  title: "Tessera: Unlocking Heterogeneous GPUs through Kernel-Granularity Disaggregation"
+  year: 2026
+  venue: "arXiv"
+  category: "evaluation"
+  status: "theory"
+  arxiv: "2604.10180"
+  code: null
+  tags: ["heterogeneous-GPU", "dense", "MoE", "evaluation"]
+  why_it_matters: "Kernel-level disaggregation across heterogeneous GPUs compared with PD and AF splits; intermediate buffers cross."
+  limitation: "The current title is Tessera; kernel-granularity splitting is broader than PD or AFD and changes the runtime/planning problem."
+  source: "https://arxiv.org/abs/2604.10180"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["FluidGPU", "Tessera"]
+
+- id: "heteropanacea"
+  title: "When Does Disaggregation Pay? Simulating Prefill--Decode--Attention--FFN Specialization for Agentic LLM Inference"
+  year: 2026
+  venue: "arXiv"
+  category: "evaluation"
+  status: "theory"
+  arxiv: "2608.03741"
+  code: null
+  tags: ["heterogeneous-GPU", "dense", "MoE", "evaluation"]
+  why_it_matters: "Simulates colocated, PD, AF and four-way PDAF pools on heterogeneous hardware; crossings as byte counts."
+  limitation: "Simulation of heterogeneous phase/operator combinations; disclose calibration and do not label projected configurations as deployments."
+  source: "https://arxiv.org/abs/2608.03741"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["HeteroPanacea"]
+
+- id: "memexplorer"
+  title: "MemExplorer: Navigating the Heterogeneous Memory Design Space for Agentic Inference NPUs"
+  year: 2026
+  venue: "arXiv"
+  category: "hardware-energy"
+  status: "theory"
+  arxiv: "2604.16007"
+  code: null
+  tags: ["heterogeneous-GPU", "dense", "MoE", "evaluation"]
+  why_it_matters: "Memory design-space exploration for separately optimized prefill, decode, attention and FFN NPUs."
+  limitation: "Memory-technology exploration for NPUs is architectural evidence rather than a ready GPU serving implementation."
+  source: "https://arxiv.org/abs/2604.16007"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+  aliases: ["MemExplorer"]
+
+- id: "tokenpowerbench"
+  title: "TokenPowerBench: Benchmarking the Power Consumption of LLM Inference"
+  year: 2026
+  venue: "AAAI"
+  category: "evaluation"
+  status: "adjacent"
+  arxiv: null
+  code: null
+  tags: ["energy", "benchmarking", "power-measurement"]
+  why_it_matters: "Provides inference power measurement and phase-aligned energy analysis relevant to disaggregated-serving evaluation."
+  limitation: "Measurement methodology does not establish that PD/AFD saves energy; include node/network boundaries and attribution assumptions."
+  source: "https://ojs.aaai.org/index.php/AAAI/article/view/40535"
+  verified: "2026-10-13"
+  artifact_type: "paper"
+
+- id: "tokenpowersandbox"
+  title: "TokenPowerSandbox: Evidence-Gated CPU-First Screening for Energy-Aware LLM Serving"
+  year: 2026
+  venue: "arXiv"
+  category: "evaluation"
+  status: "adjacent"
+  arxiv: "2608.18149"
+  code: null
+  tags: ["energy", "configuration-search", "calibration"]
+  why_it_matters: "Separates cheap configuration screening, target-GPU probes, and frozen validation with metric-specific abstention."
+  limitation: "Single H100/Qwen2.5-7B evidence; no validation of multi-GPU transfer or PD/AFD architecture crossover, and energy accuracy does not certify latency."
+  source: "https://arxiv.org/abs/2608.18149"
+  verified: "2026-10-13"
+  artifact_type: "paper"

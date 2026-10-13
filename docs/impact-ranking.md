@@ -2,7 +2,9 @@
 
 This page is an editorial map, not an automated citation ranking. Citation
 counts move slowly and can undercount new systems papers. The labels below
-reflect role in the field.
+reflect reading roles and curator judgment, not measured adoption or scientific
+quality. Recent preprints are not assigned influence from unverified citation
+counts. The same work may serve more than one comparison role.
 
 ## Tier 1: Required Foundations
 
@@ -62,3 +64,23 @@ For this field, impact has several forms:
 
 AFD papers should be judged against all five forms, not citations alone.
 
+
+## Recent Comparison Anchors
+
+These additions matter for current coverage; this is not a claim that they have
+accumulated the same influence as the earlier foundations.
+
+- [Libra / DynaServe](catalog.md#dynaserve), [prefill deflection](catalog.md#prefill-deflection),
+  and [FluidPD](catalog.md#fluidpd): compare elasticity and slack use before
+  presenting adaptive PD as a new topic.
+- [Helix](catalog.md#helix-parallelism): temporal attention/FFN sharding alternative
+  for long-context interactive decode.
+- [How Far Can Disaggregation Go?](catalog.md#afd-design-space) and
+  [AFD-Ledger](catalog.md#afd-ledger): design-space and matched-budget provisioning anchors.
+- [SQD](catalog.md#sqd) and [power-aware PD provisioning](catalog.md#power-provisioning-pd):
+  architectural and power constraints on split decisions.
+- [EPD](catalog.md#epd-disaggregation), [vLLM-Omni](catalog.md#vllm-omni), and
+  [EAServe](catalog.md#easerve): multimodal stage comparisons.
+
+Runnable components have a separate [systems directory](systems.md). Being
+available as code is an implementation property, not evidence of research impact.
